@@ -30,21 +30,16 @@ program
           return log(chalk.red(err));
         }
 
-        // Sort by speed
-        res.sort((a, b) => {
-          return b.speed - a.speed;
-        });
-
         // Keep only free slots
-        // res = _.find(res, ['slots', true]);
+        res.filter(r => r.slots === true && r.speed > 0);
 
         // Keep only mp3
-        _.find(res, r => {
-          const ext = path.extname(r.file);
-          return ext === '.mp3';
-        });
+        res.filter(r => path.extname(r.file) === '.mp3');
 
-        const filesByUser = _.groupBy(res, 'user');
+        // Sort by speed
+        res.sort((a, b) => b.speed - a.speed);
+
+        const filesByUser = _.groupBy(res, r => r.user);
 
         inquirer.prompt([
           {
