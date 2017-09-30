@@ -1,0 +1,19 @@
+{
+  "name": "slsk",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "chalk": "^2.1.0",
+    "commander": "^2.11.0",
+    "inquirer": "^3.3.0",
+    "lodash": "^4.17.4",
+    "slsk-client": "^1.0.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT"
+}
