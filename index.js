@@ -57,7 +57,7 @@ program
             const filename      = fileStructure[fileStructure.length - 1];
 
             const data = {
-              ...file,
+              file,
               path: __dirname + '/' + directory + '/' + filename
             };
 
