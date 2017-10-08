@@ -39,7 +39,12 @@ program
         // Sort by speed
         res.sort((a, b) => b.speed - a.speed);
 
-        const filesByUser = _.groupBy(res, r => r.user);
+        const filesByUser = _.groupBy(res, r => {
+          let resFileStructure = r.file.split('\\');
+          let resDirectory     = resFileStructure[resFileStructure.length - 2];
+
+          return resDirectory + ' - ' + r.user;
+        });
 
         inquirer.prompt([
           {
