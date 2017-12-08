@@ -31,10 +31,10 @@ program
         }
 
         // Keep only free slots
-        res.filter(r => r.slots === true && r.speed > 0);
+        res = res.filter(r => r.slots === true && r.speed > 0);
 
         // Keep only mp3
-        res.filter(r => path.extname(r.file) === '.mp3');
+        res = res.filter(r => path.extname(r.file) === '.mp3');
 
         // Sort by speed
         res.sort((a, b) => b.speed - a.speed);
