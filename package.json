@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "chalk": "^2.1.0",
-    "commander": "^2.11.0",
-    "inquirer": "^3.3.0",
-    "lodash": "^4.17.4",
-    "slsk-client": "^1.0.4"
+    "chalk": "^2.4.1",
+    "commander": "^2.18.0",
+    "inquirer": "^6.2.0",
+    "lodash": "^4.17.10",
+    "slsk-client": "^1.0.9"
   },
   "devDependencies": {},
   "scripts": {
