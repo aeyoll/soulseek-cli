@@ -17,7 +17,7 @@ program
   .description('Search with required query')
   .alias('s')
   .action((query, options) => {
-    log(chalk.green('Searching for "%s"'), query);
+    log(chalk.green('Searching for \'%s\''), query);
 
     slsk.connect({
       user: 'username',
@@ -49,7 +49,7 @@ program
 
         var filesByUser = {};
         for (const prop in rawFilesByUser) {
-          filesByUser[prop + " ("+rawFilesByUser[prop].length+" files)"] = rawFilesByUser[prop]
+          filesByUser[prop + ' (' + rawFilesByUser[prop].length + ' files)'] = rawFilesByUser[prop]
         }
 
         inquirer.prompt([
@@ -64,7 +64,8 @@ program
           const chosenUserFiles = filesByUser[answers.user];
           var downloadedFilesCount = 0;
 
-          log('Starting download of ' + chosenUserFiles.length + ' files...')
+          log('Starting download of ' + chosenUserFiles.length + ' file' + (chosenUserFiles.length > 1 ? 's' : '') + '...')
+          nbFileToDl = chosenUserFiles.length
           chosenUserFiles.forEach(file => {
             const fileStructure = file.file.split('\\');
             const directory     = fileStructure[fileStructure.length - 2];
@@ -79,16 +80,24 @@ program
             if (!fs.existsSync(dir)){
               fs.mkdirSync(dir);
             }
-            log('\t' + filename)
+            if (fs.existsSync(data.path)) {
+              log('\t' + filename + chalk.green(' [already downloaded: skipping]'))
+              nbFileToDl--
+              if (nbFileToDl === 0) {
+                log('No file to download...');
+                process.exit();
+              }
+              return;
+            }
+            log('\t' + filename + chalk.yellow(' [downloading...]'))
             client.download(data, (err, down) => {
               if (err) {
                 log(chalk.red(err));
                 process.exit();
               }
-              downloadedFilesCount++;
-              log("("+downloadedFilesCount+"/"+chosenUserFiles.length+") Received: "+down.path);
-              if (downloadedFilesCount === chosenUserFiles.length) {
-                log("Done.")
+              log('(' + ++downloadedFilesCount + '/' + nbFileToDl + ') Received: ' + down.path);
+              if (downloadedFilesCount === nbFileToDl) {
+                log(nbFileToDl + ' file' + (nbFileToDl > 1 ? 's' : '') + ' downloaded.')
                 process.exit()
               }
             })
