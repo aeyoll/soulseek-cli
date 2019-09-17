@@ -6,6 +6,7 @@ const inquirer = require('inquirer');
 const path     = require('path');
 const program  = require('commander');
 const slsk     = require('slsk-client');
+const fs       = require('fs');
 const log      = console.log;
 const VERSION  = '0.0.1';
 
@@ -39,22 +40,29 @@ program
         // Sort by speed
         res.sort((a, b) => b.speed - a.speed);
 
-        const filesByUser = _.groupBy(res, r => {
+        const rawFilesByUser = _.groupBy(res, r => {
           let resFileStructure = r.file.split('\\');
           let resDirectory     = resFileStructure[resFileStructure.length - 2];
 
           return resDirectory + ' - ' + r.user;
         });
 
+        var filesByUser = {};
+        for (const prop in rawFilesByUser) {
+          filesByUser[prop + " ("+rawFilesByUser[prop].length+" files)"] = rawFilesByUser[prop]
+        }
+
         inquirer.prompt([
           {
             type: 'rawlist',
             name: 'user',
+            pageSize: 10,
             message: 'Choose a folder to download?',
             choices: _.keys(filesByUser)
           }
         ]).then((answers) => {
           const chosenUserFiles = filesByUser[answers.user];
+          var downloadedFilesCount = 0;
 
           chosenUserFiles.forEach(file => {
             const fileStructure = file.file.split('\\');
@@ -66,13 +74,22 @@ program
               path: __dirname + '/' + directory + '/' + filename
             };
 
+            let dir = __dirname + '/' + directory;
+            if (!fs.existsSync(dir)){
+              fs.mkdirSync(dir);
+            }
+
             client.download(data, (err, down) => {
               if (err) {
                 log(chalk.red(err));
                 process.exit();
               }
-
-              log(down);
+              downloadedFilesCount++;
+              log("("+downloadedFilesCount+"/"+chosenUserFiles.length+") Received: "+down.path);
+              if (downloadedFilesCount === chosenUserFiles.length) {
+                log("Done.")
+                process.exit()
+              }
             })
           });
         });
