@@ -49,7 +49,7 @@ program
 
         var filesByUser = {};
         for (const prop in rawFilesByUser) {
-          filesByUser[prop + ' (' + rawFilesByUser[prop].length + ' files)'] = rawFilesByUser[prop]
+          filesByUser[prop + ' (' + rawFilesByUser[prop].length + ' files)'] = rawFilesByUser[prop];
         }
 
         inquirer.prompt([
@@ -64,8 +64,8 @@ program
           const chosenUserFiles = filesByUser[answers.user];
           var downloadedFilesCount = 0;
 
-          log('Starting download of ' + chosenUserFiles.length + ' file' + (chosenUserFiles.length > 1 ? 's' : '') + '...')
-          nbFileToDl = chosenUserFiles.length
+          log('Starting download of ' + chosenUserFiles.length + ' file' + (chosenUserFiles.length > 1 ? 's' : '') + '...');
+          nbFileToDl = chosenUserFiles.length;
           chosenUserFiles.forEach(file => {
             const fileStructure = file.file.split('\\');
             const directory     = fileStructure[fileStructure.length - 2];
@@ -77,28 +77,29 @@ program
             };
 
             let dir = __dirname + '/' + directory;
-            if (!fs.existsSync(dir)){
+            if (!fs.existsSync(dir)) {
               fs.mkdirSync(dir);
             }
             if (fs.existsSync(data.path)) {
-              log('\t' + filename + chalk.green(' [already downloaded: skipping]'))
-              nbFileToDl--
+              log('\t' + filename + chalk.green(' [already downloaded: skipping]'));
+              nbFileToDl--;
               if (nbFileToDl === 0) {
-                log('No file to download...');
+                log('No file to download.');
                 process.exit();
               }
               return;
             }
-            log('\t' + filename + chalk.yellow(' [downloading...]'))
+            log('\t' + filename + chalk.yellow(' [downloading...]'));
             client.download(data, (err, down) => {
               if (err) {
                 log(chalk.red(err));
                 process.exit();
               }
-              log('(' + ++downloadedFilesCount + '/' + nbFileToDl + ') Received: ' + down.path);
+              downloadedFilesCount++;
+              log('(' + downloadedFilesCount + '/' + nbFileToDl + ') Received: ' + down.path);
               if (downloadedFilesCount === nbFileToDl) {
-                log(nbFileToDl + ' file' + (nbFileToDl > 1 ? 's' : '') + ' downloaded.')
-                process.exit()
+                log(nbFileToDl + ' file' + (nbFileToDl > 1 ? 's' : '') + ' downloaded.');
+                process.exit();
               }
             })
           });
