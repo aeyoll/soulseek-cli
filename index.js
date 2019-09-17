@@ -64,6 +64,7 @@ program
           const chosenUserFiles = filesByUser[answers.user];
           var downloadedFilesCount = 0;
 
+          log('Starting download of ' + chosenUserFiles.length + ' files...')
           chosenUserFiles.forEach(file => {
             const fileStructure = file.file.split('\\');
             const directory     = fileStructure[fileStructure.length - 2];
@@ -78,7 +79,7 @@ program
             if (!fs.existsSync(dir)){
               fs.mkdirSync(dir);
             }
-
+            log('\t' + filename)
             client.download(data, (err, down) => {
               if (err) {
                 log(chalk.red(err));
