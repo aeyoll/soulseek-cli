@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 
-const _        = require('lodash');
-const chalk    = require('chalk');
+const _ = require('lodash');
+const chalk = require('chalk');
 const inquirer = require('inquirer');
-const path     = require('path');
-const program  = require('commander');
-const slsk     = require('slsk-client');
-const fs       = require('fs');
-const log      = console.log;
-const VERSION  = '0.0.1';
+const path = require('path');
+const program = require('commander');
+const slsk = require('slsk-client');
+const fs = require('fs');
+const log = console.log;
+const VERSION = '0.0.1';
 
 program.version(VERSION);
 
@@ -26,10 +26,13 @@ class SoulseekCli {
   connect() {
     log(chalk.green('Connecting to soulseek'));
 
-    slsk.connect({
-      user: 'username',
-      pass: 'password'
-    }, (err, client) => this.onConnected(err, client));
+    slsk.connect(
+      {
+        user: 'username',
+        pass: 'password',
+      },
+      (err, client) => this.onConnected(err, client)
+    );
   }
 
   onConnected(err, client) {
@@ -44,12 +47,15 @@ class SoulseekCli {
   }
 
   search() {
-    log(chalk.green('Searching for \'%s\''), this.query);
+    log(chalk.green("Searching for '%s'"), this.query);
 
-    return this.client.search({
-      req: this.query,
-      timeout: this.timeout
-    }, (err, res) => this.onSearchFinished(err, res));
+    return this.client.search(
+      {
+        req: this.query,
+        timeout: this.timeout,
+      },
+      (err, res) => this.onSearchFinished(err, res)
+    );
   }
 
   filterResults(res) {
@@ -66,7 +72,7 @@ class SoulseekCli {
 
     const rawFilesByUser = _.groupBy(res, r => {
       const resFileStructure = r.file.split('\\');
-      const resDirectory     = resFileStructure[resFileStructure.length - 2];
+      const resDirectory = resFileStructure[resFileStructure.length - 2];
 
       return resDirectory + ' - ' + r.user;
     });
@@ -87,7 +93,7 @@ class SoulseekCli {
 
     this.filesByUser = this.filterResults(res);
     this.showResults();
-  }  
+  }
 
   showResults(choices) {
     log(chalk.green('Displaying search results'));
@@ -100,29 +106,29 @@ class SoulseekCli {
       choices: _.keys(this.filesByUser),
     };
 
-    inquirer
-      .prompt([options])
-      .then(answers => this.processChosenAnswers(answers));
+    inquirer.prompt([options]).then(answers => this.processChosenAnswers(answers));
   }
 
   processChosenAnswers(answers) {
     const chosenUserFiles = this.filesByUser[answers.user];
 
-    log(chalk.green(
-      'Starting download of ' + chosenUserFiles.length + ' file' + (chosenUserFiles.length > 1 ? 's' : '') + '...'
-    ));
+    log(
+      chalk.green(
+        'Starting download of ' + chosenUserFiles.length + ' file' + (chosenUserFiles.length > 1 ? 's' : '') + '...'
+      )
+    );
     this.downloadFilesCount = chosenUserFiles.length;
     chosenUserFiles.forEach(file => this.downloadFile(file));
   }
 
   downloadFile(file) {
     const fileStructure = file.file.split('\\');
-    const directory     = fileStructure[fileStructure.length - 2];
-    const filename      = fileStructure[fileStructure.length - 1];
+    const directory = fileStructure[fileStructure.length - 2];
+    const filename = fileStructure[fileStructure.length - 1];
 
     const data = {
       file,
-      path: __dirname + '/' + directory + '/' + filename
+      path: __dirname + '/' + directory + '/' + filename,
     };
 
     let dir = __dirname + '/' + directory;
@@ -158,7 +164,7 @@ class SoulseekCli {
         log(this.downloadFilesCount + ' file' + (this.downloadFilesCount > 1 ? 's' : '') + ' downloaded.');
         process.exit();
       }
-    })
+    });
   }
 }
 
