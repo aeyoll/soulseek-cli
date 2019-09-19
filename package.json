@@ -5,10 +5,10 @@
   "main": "index.js",
   "dependencies": {
     "chalk": "^2.4.2",
-    "commander": "^2.20.0",
-    "fs": "0.0.1-security",
-    "inquirer": "^6.5.2",
-    "lodash": "^4.17.13",
+    "commander": "^3.0.1",
+    "fs": "0.0.2",
+    "inquirer": "^7.0.0",
+    "lodash": "^4.17.15",
     "path": "^0.12.7",
     "slsk-client": "^1.1.0"
   },
