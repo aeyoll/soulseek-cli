@@ -23,6 +23,9 @@ class SoulseekCli {
     this.connect();
   }
 
+  /**
+   * Connect to the Soulseek client
+   */
   connect() {
     log(chalk.green('Connecting to soulseek'));
 
@@ -35,6 +38,10 @@ class SoulseekCli {
     );
   }
 
+  /**
+   * @param  {string}
+   * @param  {SlskClient}
+   */
   onConnected(err, client) {
     if (err) {
       return log(chalk.red(err));
@@ -46,10 +53,13 @@ class SoulseekCli {
     this.search();
   }
 
+  /**
+   * Seach for the queried filed
+   */
   search() {
     log(chalk.green("Searching for '%s'"), this.query);
 
-    return this.client.search(
+    this.client.search(
       {
         req: this.query,
         timeout: this.timeout,
@@ -58,6 +68,13 @@ class SoulseekCli {
     );
   }
 
+  /**
+   * From the query results, only get mp3 with free slots.
+   * The fastest results are going to be first.
+   *
+   * @param  {array}
+   * @return {array}
+   */
   filterResults(res) {
     const filesByUser = {};
 
@@ -84,6 +101,10 @@ class SoulseekCli {
     return filesByUser;
   }
 
+  /**
+   * @param  {string}
+   * @param  {array}
+   */
   onSearchFinished(err, res) {
     if (err) {
       return log(chalk.red(err));
@@ -95,6 +116,11 @@ class SoulseekCli {
     this.showResults();
   }
 
+  /**
+   * Display a list of choices that the user can choose from.
+   *
+   * @param  {array}
+   */
   showResults(choices) {
     log(chalk.green('Displaying search results'));
 
@@ -109,6 +135,11 @@ class SoulseekCli {
     inquirer.prompt([options]).then(answers => this.processChosenAnswers(answers));
   }
 
+  /**
+   * From the user anwser, trigger the download of the folder
+   *
+   * @param  {array}
+   */
   processChosenAnswers(answers) {
     const chosenUserFiles = this.filesByUser[answers.user];
 
@@ -121,6 +152,11 @@ class SoulseekCli {
     chosenUserFiles.forEach(file => this.downloadFile(file));
   }
 
+  /**
+   * Download a single file from the selected anwser
+   *
+   * @param  {file}
+   */
   downloadFile(file) {
     const fileStructure = file.file.split('\\');
     const directory = fileStructure[fileStructure.length - 2];
@@ -133,10 +169,12 @@ class SoulseekCli {
 
     let dir = __dirname + '/' + directory;
 
+    // Create the directory if it doesn't exists
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir);
     }
 
+    // If the file is already there, skip the download
     if (fs.existsSync(data.path)) {
       log(filename + chalk.green(' [already downloaded: skipping]'));
       this.downloadFilesCount--;
