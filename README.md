@@ -6,6 +6,8 @@ Installation
 ---
 
 ```sh
+git clone https://github.com/aeyoll/soulseek-cli.git
+cd soulseek-cli
 npm install
 ```
 
