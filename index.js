@@ -54,7 +54,7 @@ class SoulseekCli {
   }
 
   /**
-   * Seach for the queried filed
+   * Execute the file search
    */
   search() {
     log(chalk.green("Searching for '%s'"), this.query);
