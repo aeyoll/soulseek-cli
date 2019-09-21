@@ -121,7 +121,7 @@ class SoulseekCli {
    *
    * @param  {array}
    */
-  showResults(choices) {
+  showResults() {
     log(chalk.green('Displaying search results'));
 
     const options = {
