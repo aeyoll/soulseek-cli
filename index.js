@@ -76,7 +76,7 @@ class SoulseekCli {
    * @return {array}
    */
   filterResults(res) {
-    const filesByUser = {};
+    let filesByUser = {};
 
     // Keep only free slots
     res = res.filter(r => r.slots === true && r.speed > 0);
@@ -110,9 +110,15 @@ class SoulseekCli {
       return log(chalk.red(err));
     }
 
-    log(chalk.green('Search finished'));
-
     this.filesByUser = this.filterResults(res);
+
+    if (_.isEmpty(this.filesByUser)) {
+      log(chalk.red('Nothing found'));
+      process.exit(-1);
+    } else {
+      log(chalk.green('Search finished'));
+    }
+
     this.showResults();
   }
 
