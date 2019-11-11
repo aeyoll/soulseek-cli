@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const program = require('commander');
-const VERSION = '0.0.3';
+const VERSION = '0.0.4';
 const SoulseekCli = require('./src/soulseek-cli');
 
 program.version(VERSION);
