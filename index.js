@@ -13,8 +13,10 @@ const VERSION = '0.0.1';
 program.version(VERSION);
 
 class SoulseekCli {
-  constructor(query) {
+  constructor(query, options) {
     this.query = query;
+    this.options = options;
+    this.destination = options.destination;
     this.timeout = 2000;
     this.client = null;
     this.filesByUser = {};
@@ -159,6 +161,27 @@ class SoulseekCli {
   }
 
   /**
+   * Compute the final destination repository, depending on the "destination" option
+   * @param  {string} directory 
+   * @return {string}
+   */
+  getDestinationDirectory(directory) {
+    let dir;    
+    
+    if (this.destination) {
+      if (path.isAbsolute(this.destination)) {
+        dir = this.destination  + '/' + directory;
+      } else {
+        dir = __dirname + '/' + this.destination   + '/' + directory;
+      }
+    } else {
+      dir = __dirname + '/' + directory;
+    }
+
+    return dir;
+  }
+
+  /**
    * Download a single file from the selected anwser
    *
    * @param  {file}
@@ -173,7 +196,7 @@ class SoulseekCli {
       path: __dirname + '/' + directory + '/' + filename,
     };
 
-    let dir = __dirname + '/' + directory;
+    let dir = this.getDestinationDirectory(directory);
 
     // Create the directory if it doesn't exists
     if (!fs.existsSync(dir)) {
@@ -215,9 +238,10 @@ class SoulseekCli {
 program
   .command('search [query]')
   .description('Search with required query')
+  .option('-d, --destination <folder>', 'downloads\'s destination')
   .alias('s')
   .action((query, options) => {
-    new SoulseekCli(query);
+    new SoulseekCli(query, options);
   });
 
 program.parse(process.argv);
