@@ -11,6 +11,7 @@ class SoulseekCli {
     this.query = query;
     this.options = options;
     this.destination = options.destination;
+    this.quality = options.quality;
     this.timeout = 2000;
     this.client = null;
     this.filesByUser = {};
@@ -79,6 +80,11 @@ class SoulseekCli {
 
     // Keep only mp3
     res = res.filter(r => path.extname(r.file) === '.mp3');
+
+    // Filter by quality
+    if (this.quality) {
+      res = res.filter(r => r.bitrate === parseInt(this.quality, 10));
+    }
 
     // Sort by speed
     res.sort((a, b) => b.speed - a.speed);

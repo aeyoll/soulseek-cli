@@ -10,6 +10,7 @@ program
   .command('search [query]')
   .description('Search with required query')
   .option('-d, --destination <folder>', 'downloads\'s destination')
+  .option('-q, --quality <quality>', 'show only mp3 with a defined quality')
   .alias('s')
   .action((query, options) => {
     new SoulseekCli(query, options);
