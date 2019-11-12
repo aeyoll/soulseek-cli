@@ -12,12 +12,12 @@ module.exports = function() {
    */
   this.downloadComplete = (path, totalFileCount, storeInBuffer) => {
     this.fileIndex++;
-    let logInfo = '(' + this.fileIndex + '/{{totalFileCount}}) Received: ' + path
+    let logInfo = '(' + this.fileIndex + '/{{totalFileCount}}) Received: ' + path;
     if (storeInBuffer) {
       this.logBuffer += logInfo + '\n';
     } else {
-      logInfo = logInfo.replace(/{{totalFileCount}}/g, totalFileCount)
-      console.log(logInfo);
+      logInfo = logInfo.replace(/{{totalFileCount}}/g, totalFileCount);
+      log(logInfo);
     }
   }
 
@@ -27,7 +27,7 @@ module.exports = function() {
   this.flush = (totalFileCount) => {
     if (this.logBuffer.length > 0) {
       this.logBuffer = this.logBuffer.replace(/{{totalFileCount}}/g, totalFileCount).slice(0, -1);
-      console.log(this.logBuffer)
+      log(this.logBuffer);
       this.logBuffer = '';
     }
   }

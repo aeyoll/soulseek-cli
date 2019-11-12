@@ -4,7 +4,7 @@ const inquirer = require('inquirer');
 const path = require('path');
 const slsk = require('slsk-client');
 const fs = require('fs');
-const DownloadLogger = require('./modules/DownloadLogger')
+const DownloadLogger = require('./modules/DownloadLogger');
 const log = console.log;
 
 class SoulseekCli {
@@ -56,7 +56,7 @@ class SoulseekCli {
    * Execute the file search
    */
   search() {
-    const query = this.queries[0]
+    const query = this.queries[0];
     log(chalk.green("Searching for '%s'"), query);
 
     this.client.search(
@@ -168,7 +168,7 @@ class SoulseekCli {
     if (allSearchesCompleted) {
       this.downloadLogger.flush(this.downloadFilesCount);
     } else {
-      this.search()
+      this.search();
     }
   }
 
@@ -237,7 +237,7 @@ class SoulseekCli {
         process.exit();
       }
 
-      this.downloadLogger.downloadComplete(down.path, this.downloadFilesCount, !allSearchesCompleted)
+      this.downloadLogger.downloadComplete(down.path, this.downloadFilesCount, !allSearchesCompleted);
 
       this.downloadedFilesCount++;
       if (this.downloadedFilesCount === this.downloadFilesCount && allSearchesCompleted) {
