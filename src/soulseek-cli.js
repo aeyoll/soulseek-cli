@@ -5,6 +5,7 @@ const path = require('path');
 const slsk = require('slsk-client');
 const fs = require('fs');
 const DownloadLogger = require('./modules/DownloadLogger');
+const FilterResult = require('./modules/FilterResult');
 const log = console.log;
 
 class SoulseekCli {
@@ -12,13 +13,13 @@ class SoulseekCli {
     this.queries = queries;
     this.options = options;
     this.destination = options.destination;
-    this.quality = options.quality;
     this.timeout = 2000;
     this.client = null;
     this.filesByUser = {};
     this.downloadFilesCount = 0;
     this.downloadedFilesCount = 0;
     this.downloadLogger = new DownloadLogger();
+    this.filterResult = new FilterResult(options.quality);
     this.connect();
   }
 
@@ -69,44 +70,6 @@ class SoulseekCli {
   }
 
   /**
-   * From the query results, only get mp3 with free slots.
-   * The fastest results are going to be first.
-   *
-   * @param  {array}
-   * @return {array}
-   */
-  filterResults(res) {
-    let filesByUser = {};
-
-    // Keep only free slots
-    res = res.filter(r => r.slots === true && r.speed > 0);
-
-    // Keep only mp3
-    res = res.filter(r => path.extname(r.file) === '.mp3');
-
-    // Filter by quality
-    if (this.quality) {
-      res = res.filter(r => r.bitrate === parseInt(this.quality, 10));
-    }
-
-    // Sort by speed
-    res.sort((a, b) => b.speed - a.speed);
-
-    const rawFilesByUser = _.groupBy(res, r => {
-      const resFileStructure = r.file.split('\\');
-      const resDirectory = resFileStructure[resFileStructure.length - 2];
-
-      return resDirectory + ' - ' + r.user;
-    });
-
-    for (const prop in rawFilesByUser) {
-      filesByUser[prop + ' (' + rawFilesByUser[prop].length + ' files)'] = rawFilesByUser[prop];
-    }
-
-    return filesByUser;
-  }
-
-  /**
    * @param  {string}
    * @param  {array}
    */
@@ -115,9 +78,7 @@ class SoulseekCli {
     if (err) {
       return log(chalk.red(err));
     }
-
-    this.filesByUser = this.filterResults(res);
-
+    this.filesByUser = this.filterResult.filter(res);
     if (_.isEmpty(this.filesByUser)) {
       log(chalk.red('Nothing found'));
       if (allSearchesCompleted) {
