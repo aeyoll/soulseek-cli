@@ -193,6 +193,7 @@ class SoulseekCli {
     log(filename + chalk.yellow(' [downloading...]'));
 
     this.client.download(data, (err, down) => {
+      const allSearchesCompleted = (this.queries.length === 0);
       if (err) {
         log(chalk.red(err));
         process.exit();
