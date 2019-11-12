@@ -1,18 +1,17 @@
 const _ = require('lodash');
 const chalk = require('chalk');
 const inquirer = require('inquirer');
-const path = require('path');
 const slsk = require('slsk-client');
 const fs = require('fs');
 const DownloadLogger = require('./modules/DownloadLogger');
 const FilterResult = require('./modules/FilterResult');
+const DestinationDirectory = require('./modules/DestinationDirectory');
 const log = console.log;
 
 class SoulseekCli {
   constructor(queries, options) {
     this.queries = queries;
     this.options = options;
-    this.destination = options.destination;
     this.timeout = 2000;
     this.client = null;
     this.filesByUser = {};
@@ -20,6 +19,7 @@ class SoulseekCli {
     this.downloadedFilesCount = 0;
     this.downloadLogger = new DownloadLogger();
     this.filterResult = new FilterResult(options.quality);
+    this.destinationDirectory = new DestinationDirectory(options.destination);
     this.connect();
   }
 
@@ -134,27 +134,6 @@ class SoulseekCli {
   }
 
   /**
-   * Compute the final destination repository, depending on the "destination" option
-   * @param  {string} directory
-   * @return {string}
-   */
-  getDestinationDirectory(directory) {
-    let dir;
-
-    if (this.destination) {
-      if (path.isAbsolute(this.destination)) {
-        dir = this.destination  + '/' + directory;
-      } else {
-        dir = __dirname + '/' + this.destination   + '/' + directory;
-      }
-    } else {
-      dir = __dirname + '/' + directory;
-    }
-
-    return dir;
-  }
-
-  /**
    * Download a single file from the selected anwser
    *
    * @param  {file}
@@ -167,15 +146,8 @@ class SoulseekCli {
 
     const data = {
       file,
-      path: __dirname + '/' + directory + '/' + filename,
+      path: this.destinationDirectory.getDestinationDirectory(directory) + '/' + filename,
     };
-
-    let dir = this.getDestinationDirectory(directory);
-
-    // Create the directory if it doesn't exists
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir);
-    }
 
     // If the file is already there, skip the download
     if (fs.existsSync(data.path)) {
@@ -193,7 +165,6 @@ class SoulseekCli {
     log(filename + chalk.yellow(' [downloading...]'));
 
     this.client.download(data, (err, down) => {
-      const allSearchesCompleted = (this.queries.length === 0);
       if (err) {
         log(chalk.red(err));
         process.exit();
