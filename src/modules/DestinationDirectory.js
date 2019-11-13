@@ -12,7 +12,6 @@ module.exports = function(destination) {
      */
     this.getDestinationDirectory = (directory) => {
       let dir;
-      console.log('BONJOUR', process.cwd())
       if (this.destination) {
         if (path.isAbsolute(this.destination)) {
           dir = this.destination  + '/' + directory;
