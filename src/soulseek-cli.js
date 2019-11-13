@@ -8,14 +8,9 @@ const log = console.log;
 class SoulseekCli {
   constructor(queries, options) {
     this.options = options;
-    this.timeout = 2000;
-    this.filesByUser = {};
-    this.downloadFilesCount = 0;
-    this.downloadedFilesCount = 0;
     this.searchService = new SearchService(queries);
     this.downloadService = new DownloadService(this.searchService);
     this.search = null;
-
     this.connect();
   }
 

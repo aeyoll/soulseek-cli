@@ -11,6 +11,7 @@ module.exports = function(searchService, downloadService, options, client) {
   this.searchService = searchService;
   this.downloadService = downloadService;
   this.client = client;
+  this.timeout = 2000;
 
   /**
    * Launch search query, then call a callback
