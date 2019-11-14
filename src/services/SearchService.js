@@ -8,7 +8,7 @@ module.exports = function(queries) {
    */
   this.getNextQuery = () => {
     return this.queries[0];
-  }
+  };
 
   /**
    * Return true if there is no pending searches
@@ -16,13 +16,13 @@ module.exports = function(queries) {
    * @return {boolean}
    */
   this.allSearchesCompleted = () => {
-    return (this.queries.length === 0);
-  }
+    return this.queries.length === 0;
+  };
 
   /**
    * Remove the first query of the query list
    */
   this.consumeQuery = () => {
     return this.queries.splice(0, 1);
-  }
-}
+  };
+};

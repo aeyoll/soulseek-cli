@@ -11,7 +11,7 @@ module.exports = function(searchService, downloadService) {
    * Display a line in the terminal showing the number of the downloaded file, the total number of file to download and the path to the downloaded file.
    * @param  {string} path Path of the downloaded file
    */
-  this.downloadComplete = (path) => {
+  this.downloadComplete = path => {
     this.fileIndex++;
     let logInfo = '(' + this.fileIndex + '/{{totalFileCount}}) Received: ' + path;
     if (this.searchService.allSearchesCompleted()) {
@@ -20,7 +20,7 @@ module.exports = function(searchService, downloadService) {
     } else {
       this.logBuffer += logInfo + '\n';
     }
-  }
+  };
 
   /**
    * Write in the terminal every lines stored in the buffer, then reset it to empty string.
@@ -31,17 +31,13 @@ module.exports = function(searchService, downloadService) {
       log(this.logBuffer);
       this.logBuffer = '';
     }
-  }
+  };
 
   /**
    * Writen a line summing the number of file starting to download.
    * @param  {number} fileCount Number of files
    */
-  this.startDownload = (fileCount) => {
-    log(
-      chalk.green(
-        'Starting download of ' + fileCount + ' file' + (fileCount > 1 ? 's' : '') + '...'
-      )
-    );
-  }
+  this.startDownload = fileCount => {
+    log(chalk.green('Starting download of ' + fileCount + ' file' + (fileCount > 1 ? 's' : '') + '...'));
+  };
 };
