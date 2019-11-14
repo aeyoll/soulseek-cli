@@ -1,32 +1,33 @@
 const chalk = require('chalk');
 const log = console.log;
 
-module.exports = function() {
+module.exports = function(searchService, downloadService) {
+  this.searchService = searchService;
+  this.downloadService = downloadService;
   this.logBuffer = '';
   this.fileIndex = 0;
 
   /**
    * Display a line in the terminal showing the number of the downloaded file, the total number of file to download and the path to the downloaded file.
    * @param  {string} path Path of the downloaded file
-   * @param  {boolean} storeInBuffer If this flag is set to true, the message will no be displayed but stored in buffer, waiting for flush.
    */
-  this.downloadComplete = (path, totalFileCount, storeInBuffer) => {
+  this.downloadComplete = (path) => {
     this.fileIndex++;
     let logInfo = '(' + this.fileIndex + '/{{totalFileCount}}) Received: ' + path;
-    if (storeInBuffer) {
-      this.logBuffer += logInfo + '\n';
-    } else {
-      logInfo = logInfo.replace(/{{totalFileCount}}/g, totalFileCount);
+    if (this.searchService.allSearchesCompleted()) {
+      logInfo = logInfo.replace(/{{totalFileCount}}/g, this.downloadService.getFileCount());
       log(logInfo);
+    } else {
+      this.logBuffer += logInfo + '\n';
     }
   }
 
   /**
    * Write in the terminal every lines stored in the buffer, then reset it to empty string.
    */
-  this.flush = (totalFileCount) => {
+  this.flush = () => {
     if (this.logBuffer.length > 0) {
-      this.logBuffer = this.logBuffer.replace(/{{totalFileCount}}/g, totalFileCount).slice(0, -1);
+      this.logBuffer = this.logBuffer.replace(/{{totalFileCount}}/g, this.downloadService.getFileCount()).slice(0, -1);
       log(this.logBuffer);
       this.logBuffer = '';
     }
