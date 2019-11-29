@@ -14,6 +14,18 @@ npm install
 Usage
 ---
 
+First, you need to be logged in:
+
+
+```sh
+node index.js login
+```
+
+You will be prompted your Soulseek login and password. Credentials are stored and encrypted in your system keychain.
+
+Then to perform a search:
+
+
 ```sh
 node index.js search "Your query" # Download in the current folder
 node index.js search "Your query" --destination=/path/to/directory # Download in a defined folder (relative or absolute)
