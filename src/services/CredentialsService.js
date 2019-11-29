@@ -26,7 +26,7 @@ module.exports = function() {
   /**
    * Fetchs credential from OS keychain
    *
-   * @return  {Promise<{account: string; password: string;}[]>}
+   * @return  {Promise<{account: string; password: string;}>}
    */
   this.getCredentials = () => {
     return new Promise((resolve) => {
