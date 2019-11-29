@@ -1,15 +1,18 @@
 const chalk = require('chalk');
 const slsk = require('slsk-client');
-const Search = require('./modules/Search');
-const SearchService = require('./services/SearchService');
-const DownloadService = require('./services/DownloadService');
+const Search = require('../modules/Search');
+const SearchService = require('../services/SearchService');
+const DownloadService = require('../services/DownloadService');
+const CredentialsService = require('../services/CredentialsService');
 const log = console.log;
+const err = console.error;
 
 class SoulseekCli {
   constructor(queries, options) {
     this.options = options;
     this.searchService = new SearchService(queries);
     this.downloadService = new DownloadService(this.searchService);
+    this.credentialsService = new CredentialsService();
     this.search = null;
     this.connect();
   }
@@ -19,14 +22,19 @@ class SoulseekCli {
    */
   connect() {
     log(chalk.green('Connecting to soulseek'));
-
-    slsk.connect(
-      {
-        user: 'username',
-        pass: 'password',
-      },
-      (err, client) => this.onConnected(err, client)
-    );
+    this.credentialsService.getCredentials().then((credentials) => {
+      if (credentials.length === 0) {
+        err(chalk.red('No credential found for soulseek-cli, please login.'));
+        process.exit();
+      }
+      slsk.connect(
+        {
+          user: credentials[0].account,
+          pass: credentials[0].password
+        },
+        (err, client) => this.onConnected(err, client)
+      );
+    })
   }
 
   /**
