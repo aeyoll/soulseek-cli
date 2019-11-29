@@ -12,8 +12,14 @@ module.exports = function() {
    * @param  {string}
    */
   this.storeCredentials = (login, pwd) => {
-    keytar.deletePassword(service, account).then(() => {
-      keytar.setPassword(this.serviceName, login, pwd);
+    keytar.findCredentials(this.serviceName).then((oldCredentials) => {
+      if (oldCredentials.length === 0) {
+        keytar.setPassword(this.serviceName, login, pwd);
+        return;
+      }
+      keytar.deletePassword(this.serviceName, oldCredentials[0].account).then(() => {
+        keytar.setPassword(this.serviceName, login, pwd);
+      });
     });
   }
 
