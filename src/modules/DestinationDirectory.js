@@ -10,29 +10,29 @@ module.exports = function(destination) {
    * @param  {string} directory
    * @return {string}
    */
-  this.getDestinationDirectory = (directory) => {
+  this.getDestinationDirectory = directory => {
     let dir;
     if (this.destination) {
       if (path.isAbsolute(this.destination)) {
-        dir = this.destination  + '/' + directory;
+        dir = this.destination + '/' + directory;
       } else {
-        dir = process.cwd() + '/' + this.destination   + '/' + directory;
+        dir = process.cwd() + '/' + this.destination + '/' + directory;
       }
     } else {
       dir = process.cwd() + '/' + directory;
     }
-    createIfNotExist(dir)
+    createIfNotExist(dir);
     return dir;
-  }
-}
+  };
+};
 
-let createIfNotExist = (path) => {
+let createIfNotExist = path => {
   dirList = path.split('/');
-  buildPath = ''
+  buildPath = '';
   for (let i = 0; i < dirList.length; i++) {
     buildPath += dirList[i] + '/';
     if (!fs.existsSync(buildPath)) {
       fs.mkdirSync(buildPath);
     }
   }
-}
+};

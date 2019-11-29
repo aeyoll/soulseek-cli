@@ -16,17 +16,17 @@ module.exports = function(downloadService, searchService, options, client) {
    *
    * @param {array} files
    */
-  this.startDownloads = (files) => {
+  this.startDownloads = files => {
     this.downloadService.prepareDownload(files);
     files.forEach(file => this.downloadFile(file));
-  }
+  };
 
   /**
    * Download a single file from the selected anwser
    *
    * @param {file}
    */
-  this.downloadFile = (file) => {
+  this.downloadFile = file => {
     const fileStructure = file.file.split('\\');
     const directory = fileStructure[fileStructure.length - 2];
     const filename = fileStructure[fileStructure.length - 1];
@@ -49,7 +49,7 @@ module.exports = function(downloadService, searchService, options, client) {
       }
       this.downloadService.downloadComplete(down.path);
     });
-  }
+  };
 
   this.checkFileExist = (path, filename) => {
     if (fs.existsSync(path)) {
@@ -62,5 +62,5 @@ module.exports = function(downloadService, searchService, options, client) {
       return true;
     }
     return false;
-  }
-}
+  };
+};

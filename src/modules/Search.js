@@ -25,7 +25,7 @@ module.exports = function(searchService, downloadService, options, client) {
     };
     const afterSearch = (err, res) => this.onSearchFinished(err, res);
     this.client.search(searchParam, afterSearch);
-  }
+  };
 
   /**
    * Callback called when the search query get back
@@ -37,34 +37,32 @@ module.exports = function(searchService, downloadService, options, client) {
     filesByUser = this.filterResult.filter(res);
     this.checkEmptyResult(filesByUser);
     this.showResults(filesByUser);
-  }
+  };
 
   /**
    * If the result set is empty and there is no pending searches quit the process.
    * If there is pending searches, launch the next search.
    * If the resultat set is not empty just log success message.
    */
-  this.checkEmptyResult = (filesByUser) => {
+  this.checkEmptyResult = filesByUser => {
     if (_.isEmpty(filesByUser)) {
       log(chalk.red('Nothing found'));
-      if (this.allSearchesCompleted()) {
+      this.searchService.consumeQuery();
+      if (this.searchService.allSearchesCompleted()) {
         process.exit(-1);
-      } else {
-        this.searchService.consumeQuery();
-        this.search();
-        return;
       }
+      this.search();
     } else {
       log(chalk.green('Search finished'));
     }
-  }
+  };
 
   /**
    * Display a list of choices that the user can choose from.
    *
    * @param {array} filesByUser
    */
-  this.showResults = (filesByUser) => {
+  this.showResults = filesByUser => {
     log(chalk.green('Displaying search results'));
 
     const options = {
@@ -75,7 +73,7 @@ module.exports = function(searchService, downloadService, options, client) {
       choices: _.keys(filesByUser),
     };
     inquirer.prompt([options]).then(answers => this.processChosenAnswers(answers, filesByUser));
-  }
+  };
 
   /**
    * From the user anwser, trigger the download of the folder
@@ -92,5 +90,5 @@ module.exports = function(searchService, downloadService, options, client) {
     } else {
       this.search();
     }
-  }
-}
+  };
+};

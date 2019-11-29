@@ -11,36 +11,36 @@ module.exports = function(qualityFilter) {
    * @param  {array}
    * @return {array}
    */
-  this.filter = (res) => {
+  this.filter = res => {
     res = filterByFreeSlot(res);
     res = keepOnlyMp3(res);
     res = filterByQuality(res);
     res = sortBySpeed(res);
     const filesByUser = getFilesByUser(res);
     return filesByUser;
-  }
-}
+  };
+};
 
-let filterByFreeSlot = (res) => {
-  return res.filter(r => (r.slots === true && r.speed > 0));
-}
+let filterByFreeSlot = res => {
+  return res.filter(r => r.slots === true && r.speed > 0);
+};
 
-let keepOnlyMp3 = (res) => {
-  return res.filter(r => (path.extname(r.file) === '.mp3'));
-}
+let keepOnlyMp3 = res => {
+  return res.filter(r => path.extname(r.file) === '.mp3');
+};
 
-let filterByQuality = (res) => {
+let filterByQuality = res => {
   if (this.qualityFilter) {
     res = res.filter(r => r.bitrate === parseInt(this.qualityFilter, 10));
   }
   return res;
-}
+};
 
-let sortBySpeed = (res) => {
-  return res.sort((a, b) => b.speed - a.speed);;
-}
+let sortBySpeed = res => {
+  return res.sort((a, b) => b.speed - a.speed);
+};
 
-let getFilesByUser = (res) => {
+let getFilesByUser = res => {
   let filesByUser = {};
 
   const rawFilesByUser = _.groupBy(res, r => {
@@ -52,5 +52,5 @@ let getFilesByUser = (res) => {
   for (const prop in rawFilesByUser) {
     filesByUser[prop + ' (' + rawFilesByUser[prop].length + ' files)'] = rawFilesByUser[prop];
   }
-  return filesByUser
-}
+  return filesByUser;
+};
