@@ -47,13 +47,11 @@ module.exports = function(searchService, downloadService, options, client) {
   this.checkEmptyResult = filesByUser => {
     if (_.isEmpty(filesByUser)) {
       log(chalk.red('Nothing found'));
-      if (this.allSearchesCompleted()) {
+      this.searchService.consumeQuery();
+      if (this.searchService.allSearchesCompleted()) {
         process.exit(-1);
-      } else {
-        this.searchService.consumeQuery();
-        this.search();
-        return;
       }
+      this.search();
     } else {
       log(chalk.green('Search finished'));
     }
