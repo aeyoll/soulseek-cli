@@ -19,7 +19,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "prettier --single-quote --trailing-comma=es5 --print-width=120 --check src/*/*.js"
   },
   "bin": {
     "soulseek": "./cli.js"

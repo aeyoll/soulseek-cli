@@ -1,0 +1,19 @@
+language: node_js
+
+sudo: required
+
+dist: trusty
+
+node_js:
+  - lts/*
+
+env:
+  - CC=clang CXX=clang++ npm_config_clang=1
+
+addons:
+  apt:
+    packages:
+      - libsecret-1-dev
+
+before_install:
+  - npm i -g prettier
