@@ -4,7 +4,7 @@
     "type": "git",
     "url": "https://github.com/aeyoll/soulseek-cli"
   },
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "",
   "main": "cli.js",
   "dependencies": {
@@ -19,7 +19,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "prettier --single-quote --trailing-comma=es5 --print-width=120 --check src/*/*.js"
   },
   "bin": {
     "soulseek": "./cli.js"
