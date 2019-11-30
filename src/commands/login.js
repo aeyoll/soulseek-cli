@@ -14,17 +14,17 @@ class Login {
     const loginQuestion = {
       type: 'input',
       name: 'login',
-      message: 'Login'
+      message: 'Login',
     };
     const pwdQuestion = {
       type: 'input',
       name: 'pwd',
-      message: 'Password'
+      message: 'Password',
     };
-    inquirer.prompt(loginQuestion).then((loginAnswer) => {
-        inquirer.prompt(pwdQuestion).then((pwdAnswer) => {
-            this.credentialsService.storeCredentials(loginAnswer.login, pwdAnswer.pwd);
-        });
+    inquirer.prompt(loginQuestion).then(loginAnswer => {
+      inquirer.prompt(pwdQuestion).then(pwdAnswer => {
+        this.credentialsService.storeCredentials(loginAnswer.login, pwdAnswer.pwd);
+      });
     });
   }
 }
