@@ -6,9 +6,7 @@ Installation
 ---
 
 ```sh
-git clone https://github.com/aeyoll/soulseek-cli.git
-cd soulseek-cli
-npm install
+npm install -g soulseek-cli
 ```
 
 Usage
@@ -18,7 +16,7 @@ First, you need to be logged in:
 
 
 ```sh
-node index.js login
+soulseek login
 ```
 
 You will be prompted your Soulseek login and password. Credentials are stored and encrypted in your system keychain.
@@ -27,9 +25,9 @@ Then to perform a search:
 
 
 ```sh
-node index.js search "Your query" # Download in the current folder
-node index.js search "Your query" --destination=/path/to/directory # Download in a defined folder (relative or absolute)
-node index.js search "Your query" --quality=320 # Filter by quality
+soulseek search "Your query" # Download in the current folder
+soulseek search "Your query" --destination=/path/to/directory # Download in a defined folder (relative or absolute)
+soulseek search "Your query" --quality=320 # Filter by quality
 ```
 
 Contribution
