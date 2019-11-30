@@ -1,6 +1,10 @@
 {
   "name": "soulseek-cli",
-  "version": "0.0.7",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aeyoll/soulseek-cli"
+  },
+  "version": "0.0.8",
   "description": "",
   "main": "index.js",
   "dependencies": {
@@ -16,6 +20,9 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "soulseek": "./cli.js"
   },
   "author": "Jean-Philippe Bidegain",
   "license": "MIT"
