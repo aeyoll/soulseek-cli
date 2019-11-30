@@ -1,5 +1,7 @@
 # Soulseek CLI
 
+[![Build Status](https://travis-ci.org/aeyoll/soulseek-cli.svg?branch=develop)](https://travis-ci.org/aeyoll/soulseek-cli)
+
 A Soulseek Cli client.
 
 Installation
