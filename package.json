@@ -4,9 +4,9 @@
     "type": "git",
     "url": "https://github.com/aeyoll/soulseek-cli"
   },
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "",
-  "main": "index.js",
+  "main": "cli.js",
   "dependencies": {
     "chalk": "^3.0.0",
     "commander": "^4.0.0",
