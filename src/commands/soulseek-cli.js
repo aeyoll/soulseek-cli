@@ -21,7 +21,7 @@ class SoulseekCli {
    */
   connect() {
     log(chalk.green('Connecting to soulseek'));
-    this.credentialsService.getCredentials().then(credentials => {
+    this.credentialsService.getCredentials().then((credentials) => {
       slsk.connect(
         {
           user: credentials.account,

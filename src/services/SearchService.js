@@ -1,4 +1,4 @@
-module.exports = function(queries) {
+module.exports = function (queries) {
   this.queries = queries;
 
   /**

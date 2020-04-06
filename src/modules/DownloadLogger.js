@@ -1,7 +1,7 @@
 const chalk = require('chalk');
 const log = console.log;
 
-module.exports = function(searchService, downloadService) {
+module.exports = function (searchService, downloadService) {
   this.searchService = searchService;
   this.downloadService = downloadService;
   this.logBuffer = '';
@@ -11,7 +11,7 @@ module.exports = function(searchService, downloadService) {
    * Display a line in the terminal showing the number of the downloaded file, the total number of file to download and the path to the downloaded file.
    * @param  {string} path Path of the downloaded file
    */
-  this.downloadComplete = path => {
+  this.downloadComplete = (path) => {
     this.fileIndex++;
     let logInfo = '(' + this.fileIndex + '/{{totalFileCount}}) Received: ' + path;
     if (this.searchService.allSearchesCompleted()) {
@@ -37,7 +37,7 @@ module.exports = function(searchService, downloadService) {
    * Writen a line summing the number of file starting to download.
    * @param  {number} fileCount Number of files
    */
-  this.startDownload = fileCount => {
+  this.startDownload = (fileCount) => {
     log(chalk.green('Starting download of ' + fileCount + ' file' + (fileCount > 1 ? 's' : '') + '...'));
   };
 };

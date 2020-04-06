@@ -4,7 +4,7 @@ const chalk = require('chalk');
 const DestinationDirectory = require('./DestinationDirectory');
 const log = console.log;
 
-module.exports = function(downloadService, searchService, options, client) {
+module.exports = function (downloadService, searchService, options, client) {
   this.destinationDirectory = new DestinationDirectory(options.destination);
   this.downloadService = downloadService;
   this.searchService = searchService;
@@ -16,9 +16,9 @@ module.exports = function(downloadService, searchService, options, client) {
    *
    * @param {array} files
    */
-  this.startDownloads = files => {
+  this.startDownloads = (files) => {
     this.downloadService.prepareDownload(files);
-    files.forEach(file => this.downloadFile(file));
+    files.forEach((file) => this.downloadFile(file));
   };
 
   /**
@@ -26,7 +26,7 @@ module.exports = function(downloadService, searchService, options, client) {
    *
    * @param {file}
    */
-  this.downloadFile = file => {
+  this.downloadFile = (file) => {
     const fileStructure = file.file.split('\\');
     const directory = fileStructure[fileStructure.length - 2];
     const filename = fileStructure[fileStructure.length - 1];

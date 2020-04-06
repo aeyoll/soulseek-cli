@@ -5,7 +5,7 @@ const _ = require('lodash');
 const chalk = require('chalk');
 const log = console.log;
 
-module.exports = function(searchService, downloadService, options, client) {
+module.exports = function (searchService, downloadService, options, client) {
   this.download = new Download(downloadService, searchService, options, client);
   this.filterResult = new FilterResult(options.quality);
   this.searchService = searchService;
@@ -44,7 +44,7 @@ module.exports = function(searchService, downloadService, options, client) {
    * If there is pending searches, launch the next search.
    * If the resultat set is not empty just log success message.
    */
-  this.checkEmptyResult = filesByUser => {
+  this.checkEmptyResult = (filesByUser) => {
     if (_.isEmpty(filesByUser)) {
       log(chalk.red('Nothing found'));
       this.searchService.consumeQuery();
@@ -62,7 +62,7 @@ module.exports = function(searchService, downloadService, options, client) {
    *
    * @param {array} filesByUser
    */
-  this.showResults = filesByUser => {
+  this.showResults = (filesByUser) => {
     log(chalk.green('Displaying search results'));
 
     const options = {
@@ -72,7 +72,7 @@ module.exports = function(searchService, downloadService, options, client) {
       message: 'Choose a folder to download',
       choices: _.keys(filesByUser),
     };
-    inquirer.prompt([options]).then(answers => this.processChosenAnswers(answers, filesByUser));
+    inquirer.prompt([options]).then((answers) => this.processChosenAnswers(answers, filesByUser));
   };
 
   /**
