@@ -8,11 +8,11 @@
   "description": "",
   "main": "cli.js",
   "dependencies": {
-    "chalk": "^3.0.0",
-    "commander": "^4.0.0",
+    "chalk": "^4.0.0",
+    "commander": "^5.0.0",
     "fs": "0.0.2",
-    "inquirer": "^7.0.0",
-    "keytar": "^5.0.0",
+    "inquirer": "^7.1.0",
+    "keytar": "^5.4.0",
     "lodash": "^4.17.15",
     "path": "^0.12.7",
     "slsk-client": "^1.1.0"
