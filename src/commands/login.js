@@ -21,8 +21,8 @@ class Login {
       name: 'pwd',
       message: 'Password',
     };
-    inquirer.prompt(loginQuestion).then(loginAnswer => {
-      inquirer.prompt(pwdQuestion).then(pwdAnswer => {
+    inquirer.prompt(loginQuestion).then((loginAnswer) => {
+      inquirer.prompt(pwdQuestion).then((pwdAnswer) => {
         this.credentialsService.storeCredentials(loginAnswer.login, pwdAnswer.pwd);
       });
     });

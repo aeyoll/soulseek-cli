@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const process = require('process');
 
-module.exports = function(destination) {
+module.exports = function (destination) {
   this.destination = destination;
 
   /**
@@ -10,7 +10,7 @@ module.exports = function(destination) {
    * @param  {string} directory
    * @return {string}
    */
-  this.getDestinationDirectory = directory => {
+  this.getDestinationDirectory = (directory) => {
     let dir;
     if (this.destination) {
       if (path.isAbsolute(this.destination)) {
@@ -26,7 +26,7 @@ module.exports = function(destination) {
   };
 };
 
-let createIfNotExist = path => {
+let createIfNotExist = (path) => {
   dirList = path.split('/');
   buildPath = '';
   for (let i = 0; i < dirList.length; i++) {

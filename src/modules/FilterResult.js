@@ -1,7 +1,7 @@
 const path = require('path');
 const _ = require('lodash');
 
-module.exports = function(qualityFilter) {
+module.exports = function (qualityFilter) {
   this.qualityFilter = qualityFilter;
 
   /**
@@ -11,7 +11,7 @@ module.exports = function(qualityFilter) {
    * @param  {array}
    * @return {array}
    */
-  this.filter = res => {
+  this.filter = (res) => {
     res = filterByFreeSlot(res);
     res = keepOnlyMp3(res);
     res = filterByQuality(res);
@@ -21,29 +21,29 @@ module.exports = function(qualityFilter) {
   };
 };
 
-let filterByFreeSlot = res => {
-  return res.filter(r => r.slots === true && r.speed > 0);
+let filterByFreeSlot = (res) => {
+  return res.filter((r) => r.slots === true && r.speed > 0);
 };
 
-let keepOnlyMp3 = res => {
-  return res.filter(r => path.extname(r.file) === '.mp3');
+let keepOnlyMp3 = (res) => {
+  return res.filter((r) => path.extname(r.file) === '.mp3');
 };
 
-let filterByQuality = res => {
+let filterByQuality = (res) => {
   if (this.qualityFilter) {
-    res = res.filter(r => r.bitrate === parseInt(this.qualityFilter, 10));
+    res = res.filter((r) => r.bitrate === parseInt(this.qualityFilter, 10));
   }
   return res;
 };
 
-let sortBySpeed = res => {
+let sortBySpeed = (res) => {
   return res.sort((a, b) => b.speed - a.speed);
 };
 
-let getFilesByUser = res => {
+let getFilesByUser = (res) => {
   let filesByUser = {};
 
-  const rawFilesByUser = _.groupBy(res, r => {
+  const rawFilesByUser = _.groupBy(res, (r) => {
     const resFileStructure = r.file.split('\\');
     const resDirectory = resFileStructure[resFileStructure.length - 2];
     return resDirectory + ' - ' + r.user;
