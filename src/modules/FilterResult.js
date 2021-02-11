@@ -51,6 +51,16 @@ let computeAverageBitrate = (files) => {
   return averageBitrate;
 };
 
+let computeFolderSize = (files) => {
+  let size = 0
+
+  if (files.length > 0) {
+    size = Math.round(files.reduce((a, b) => a + b.size, 0) / 1024 / 1024);
+  }
+
+  return size;
+}
+
 let getFilesByUser = (res) => {
   let filesByUser = {};
 
@@ -68,6 +78,10 @@ let getFilesByUser = (res) => {
 
     // Bitrate
     extraInfo.push(computeAverageBitrate(rawFilesByUser[prop]) + 'kbps');
+
+    // Size
+    extraInfo.push(computeFolderSize(rawFilesByUser[prop]) + 'mb')
+
     filesByUser[`${prop} (${extraInfo.join(', ')})`] = rawFilesByUser[prop];
   }
   return filesByUser;
