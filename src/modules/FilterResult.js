@@ -21,25 +21,44 @@ module.exports = function (qualityFilter) {
   };
 };
 
-let filterByFreeSlot = (res) => {
-  return res.filter((r) => r.slots === true && r.speed > 0);
-};
+/**
+ * Discard all results without free slots
+ * @param {array} res
+ * @returns {array}
+ */
+let filterByFreeSlot = (res) => res.filter((r) => r.slots === true && r.speed > 0);
 
-let keepOnlyMp3 = (res) => {
-  return res.filter((r) => path.extname(r.file) === '.mp3');
-};
+/**
+ * Remove everything that is not a mp3
+ * @param {array} res
+ * @returns {array}
+ */
+let keepOnlyMp3 = (res) => res.filter((r) => path.extname(r.file) === '.mp3');
 
+/**
+ * If a quality filter is defined, keep only the folders with the defined bitrate
+ * @param {array} res
+ * @returns {array}
+ */
 let filterByQuality = (res) => {
   if (this.qualityFilter) {
     res = res.filter((r) => r.bitrate === parseInt(this.qualityFilter, 10));
   }
+
   return res;
 };
 
-let sortBySpeed = (res) => {
-  return res.sort((a, b) => b.speed - a.speed);
-};
+/**
+ * Display the fastest results first
+ * @param {array} res
+ */
+let sortBySpeed = (res) => res.sort((a, b) => b.speed - a.speed);
 
+/**
+ * Compute the average bitrate of a folder
+ * @param {array} files
+ * @returns {Number}
+ */
 let computeAverageBitrate = (files) => {
   let averageBitrate = 0;
 
@@ -51,16 +70,26 @@ let computeAverageBitrate = (files) => {
   return averageBitrate;
 };
 
+/**
+ * Compute the size of a folder in megabytes
+ * @param {array} files
+ * @returns {Number}
+ */
 let computeFolderSize = (files) => {
-  let size = 0
+  let size = 0;
 
   if (files.length > 0) {
     size = Math.round(files.reduce((a, b) => a + b.size, 0) / 1024 / 1024);
   }
 
   return size;
-}
+};
 
+/**
+ * Build the result list
+ * @param {array} res
+ * @returns {object}
+ */
 let getFilesByUser = (res) => {
   let filesByUser = {};
 
@@ -80,9 +109,10 @@ let getFilesByUser = (res) => {
     extraInfo.push(computeAverageBitrate(rawFilesByUser[prop]) + 'kbps');
 
     // Size
-    extraInfo.push(computeFolderSize(rawFilesByUser[prop]) + 'mb')
+    extraInfo.push(computeFolderSize(rawFilesByUser[prop]) + 'mb');
 
     filesByUser[`${prop} (${extraInfo.join(', ')})`] = rawFilesByUser[prop];
   }
+
   return filesByUser;
 };
