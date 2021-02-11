@@ -40,6 +40,17 @@ let sortBySpeed = (res) => {
   return res.sort((a, b) => b.speed - a.speed);
 };
 
+let computeAverageBitrate = (files) => {
+  let averageBitrate = 0;
+
+  if (files.length > 0) {
+    const sum = files.reduce((a, b) => a + b.bitrate, 0);
+    averageBitrate = Math.round(sum / files.length);
+  }
+
+  return averageBitrate;
+};
+
 let getFilesByUser = (res) => {
   let filesByUser = {};
 
@@ -50,7 +61,14 @@ let getFilesByUser = (res) => {
   });
 
   for (const prop in rawFilesByUser) {
-    filesByUser[prop + ' (' + rawFilesByUser[prop].length + ' files)'] = rawFilesByUser[prop];
+    let extraInfo = [];
+
+    // Number of files
+    extraInfo.push(rawFilesByUser[prop].length + ' files');
+
+    // Bitrate
+    extraInfo.push(computeAverageBitrate(rawFilesByUser[prop]) + 'kbps');
+    filesByUser[`${prop} (${extraInfo.join(', ')})`] = rawFilesByUser[prop];
   }
   return filesByUser;
 };
