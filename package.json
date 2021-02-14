@@ -4,16 +4,16 @@
     "type": "git",
     "url": "https://github.com/aeyoll/soulseek-cli"
   },
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "",
   "main": "cli.js",
   "dependencies": {
-    "chalk": "^4.0.0",
-    "commander": "^5.0.0",
+    "chalk": "^4.1.0",
+    "commander": "^7.0.0",
     "fs": "0.0.2",
-    "inquirer": "^7.1.0",
-    "keytar": "^5.4.0",
-    "lodash": "^4.17.15",
+    "inquirer": "^7.3.3",
+    "keytar": "^7.3.0",
+    "lodash": "^4.17.20",
     "path": "^0.12.7",
     "slsk-client": "^1.1.0"
   },
