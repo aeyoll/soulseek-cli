@@ -86,6 +86,21 @@ let computeFolderSize = (files) => {
 };
 
 /**
+ * Get the speed of the remote peer
+ * @param {array} files
+ * @returns {Number}
+ */
+let getSpeed = (files) => {
+  let speed = 0;
+
+  if (files.length > 0) {
+    speed = Math.round(files[0].speed / 1024);
+  }
+
+  return speed;
+};
+
+/**
  * Build the result list
  * @param {array} res
  * @returns {object}
@@ -110,6 +125,9 @@ let getFilesByUser = (res) => {
 
     // Size
     extraInfo.push(computeFolderSize(rawFilesByUser[prop]) + 'mb');
+
+    // Speed
+    extraInfo.push(`~${getSpeed(rawFilesByUser[prop])}kb/s`);
 
     filesByUser[`${prop} (${extraInfo.join(', ')})`] = rawFilesByUser[prop];
   }
