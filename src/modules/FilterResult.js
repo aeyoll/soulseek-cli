@@ -1,5 +1,6 @@
 const path = require('path');
 const _ = require('lodash');
+const pluralize = require('pluralize');
 
 module.exports = function (qualityFilter) {
   this.qualityFilter = qualityFilter;
@@ -59,7 +60,7 @@ let sortBySpeed = (res) => res.sort((a, b) => b.speed - a.speed);
  * @param {array} files
  * @returns {Number}
  */
-let computeAverageBitrate = (files) => {
+let getAverageBitrate = (files) => {
   let averageBitrate = 0;
 
   if (files.length > 0) {
@@ -75,7 +76,7 @@ let computeAverageBitrate = (files) => {
  * @param {array} files
  * @returns {Number}
  */
-let computeFolderSize = (files) => {
+let getFolderSize = (files) => {
   let size = 0;
 
   if (files.length > 0) {
@@ -118,16 +119,16 @@ let getFilesByUser = (res) => {
     let extraInfo = [];
 
     // Number of files
-    extraInfo.push(rawFilesByUser[prop].length + ' files');
+    extraInfo.push(`${rawFilesByUser[prop].length} ${pluralize('file', rawFilesByUser[prop].length)}`);
 
     // Bitrate
-    extraInfo.push(computeAverageBitrate(rawFilesByUser[prop]) + 'kbps');
+    extraInfo.push(`bitrate: ${getAverageBitrate(rawFilesByUser[prop])}kbps`);
 
     // Size
-    extraInfo.push(computeFolderSize(rawFilesByUser[prop]) + 'mb');
+    extraInfo.push(`size: ${getFolderSize(rawFilesByUser[prop])}mb`);
 
     // Speed
-    extraInfo.push(`~${getSpeed(rawFilesByUser[prop])}kb/s`);
+    extraInfo.push(`speed: ~${getSpeed(rawFilesByUser[prop])}kb/s`);
 
     filesByUser[`${prop} (${extraInfo.join(', ')})`] = rawFilesByUser[prop];
   }
