@@ -15,7 +15,6 @@
     "keytar": "^7.3.0",
     "lodash": "^4.17.20",
     "path": "^0.12.7",
-    "pluralize": "^8.0.0",
     "slsk-client": "^1.1.0"
   },
   "devDependencies": {},

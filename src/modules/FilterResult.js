@@ -1,6 +1,6 @@
 const path = require('path');
 const _ = require('lodash');
-const pluralize = require('pluralize');
+const pluralize = (noun, count, suffix = 's') => `${count} ${noun}${count !== 1 ? suffix : ''}`;
 
 module.exports = function (qualityFilter) {
   this.qualityFilter = qualityFilter;
@@ -119,7 +119,7 @@ let getFilesByUser = (res) => {
     let extraInfo = [];
 
     // Number of files
-    extraInfo.push(`${rawFilesByUser[prop].length} ${pluralize('file', rawFilesByUser[prop].length)}`);
+    extraInfo.push(`${pluralize('file', rawFilesByUser[prop].length)}`);
 
     // Bitrate
     extraInfo.push(`bitrate: ${getAverageBitrate(rawFilesByUser[prop])}kbps`);
