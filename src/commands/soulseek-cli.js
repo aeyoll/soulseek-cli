@@ -8,6 +8,11 @@ const log = console.log;
 
 class SoulseekCli {
   constructor(queries, options) {
+    if (queries.length === 0) {
+      log(chalk.red('Please add a search query'));
+      process.exit(-1);
+    }
+
     this.options = options;
     this.searchService = new SearchService(queries);
     this.downloadService = new DownloadService(this.searchService);
