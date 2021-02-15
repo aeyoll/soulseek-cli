@@ -41,7 +41,7 @@ Options:
 | ------------------------- | ---------------------------------------------------------------------------------------------- |
 | -d --destination <folder> | downloads's destination                                                                        |
 | -q --quality <quality>    | show only mp3 with a defined quality                                                           |
-| -m --mode <mode>          | filter the kind of files you want (available: "mp3", "flac", default: "flac") (default: "mp3") |
+| -m --mode <mode>          | filter the kind of files you want (available: "mp3", "flac", default: "mp3")                   |
 | -h --help                 | display help for command                                                                       |
 
 Examples:
