@@ -11,26 +11,48 @@ Installation
 npm install -g soulseek-cli
 ```
 
-Usage
+Commands
 ---
 
-First, you need to be logged in:
+### Login
 
+Before beeing able to search, you need to be logged in.
 
-```sh
+Usage:
+```
 soulseek login
 ```
 
 You will be prompted your Soulseek login and password. Credentials are stored and encrypted in your system keychain.
 
-Then to perform a search:
+### Search
 
+Search with required query.
+
+Usage:
+
+```
+soulseek search|s [options] [query...]
+```
+
+Options:
+
+| Option                    | Description                                                                                    |
+| ------------------------- | ---------------------------------------------------------------------------------------------- |
+| -d --destination <folder> | downloads's destination                                                                        |
+| -q --quality <quality>    | show only mp3 with a defined quality                                                           |
+| -m --mode <mode>          | filter the kind of files you want (available: "mp3", "flac", default: "flac") (default: "mp3") |
+| -h --help                 | display help for command                                                                       |
+
+Examples:
 
 ```sh
 soulseek search "Your query" # Download in the current folder
 soulseek search "Your query" --destination=/path/to/directory # Download in a defined folder (relative or absolute)
 soulseek search "Your query" --quality=320 # Filter by quality
+soulseek search "Your query" --mode=flac # Filter by file type
 ```
+
 
 Contribution
 ---
