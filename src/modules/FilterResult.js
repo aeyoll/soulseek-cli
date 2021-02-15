@@ -2,8 +2,9 @@ const path = require('path');
 const _ = require('lodash');
 const pluralize = (noun, count, suffix = 's') => `${count} ${noun}${count !== 1 ? suffix : ''}`;
 
-module.exports = function (qualityFilter) {
+module.exports = function (qualityFilter, mode) {
   this.qualityFilter = qualityFilter;
+  this.mode = mode;
 
   /**
    * From the query results, only get mp3 with free slots.
@@ -14,7 +15,15 @@ module.exports = function (qualityFilter) {
    */
   this.filter = (res) => {
     res = filterByFreeSlot(res);
-    res = keepOnlyMp3(res);
+
+    if (this.mode === 'mp3') {
+      res = keepOnlyMp3(res);
+    }
+
+    if (this.mode === 'flac') {
+      res = keepOnlyFlac(res);
+    }
+
     res = filterByQuality(res);
     res = sortBySpeed(res);
     const filesByUser = getFilesByUser(res);
@@ -35,6 +44,13 @@ let filterByFreeSlot = (res) => res.filter((r) => r.slots === true && r.speed > 
  * @returns {array}
  */
 let keepOnlyMp3 = (res) => res.filter((r) => path.extname(r.file) === '.mp3');
+
+/**
+ * Remove everything that is not a flac
+ * @param {array} res
+ * @returns {array}
+ */
+let keepOnlyFlac = (res) => res.filter((r) => path.extname(r.file) === '.flac');
 
 /**
  * If a quality filter is defined, keep only the folders with the defined bitrate
@@ -122,7 +138,10 @@ let getFilesByUser = (res) => {
     extraInfo.push(`${pluralize('file', rawFilesByUser[prop].length)}`);
 
     // Bitrate
-    extraInfo.push(`bitrate: ${getAverageBitrate(rawFilesByUser[prop])}kbps`);
+    const bitrate = getAverageBitrate(rawFilesByUser[prop]);
+    if (bitrate) {
+      extraInfo.push(`bitrate: ${bitrate}kbps`);
+    }
 
     // Size
     extraInfo.push(`size: ${getFolderSize(rawFilesByUser[prop])}mb`);

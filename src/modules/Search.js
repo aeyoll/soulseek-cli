@@ -7,7 +7,7 @@ const log = console.log;
 
 module.exports = function (searchService, downloadService, options, client) {
   this.download = new Download(downloadService, searchService, options, client);
-  this.filterResult = new FilterResult(options.quality);
+  this.filterResult = new FilterResult(options.quality, options.mode);
   this.searchService = searchService;
   this.downloadService = downloadService;
   this.client = client;

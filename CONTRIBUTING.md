@@ -7,3 +7,20 @@ Please make sure you got [editorconfig](https://editorconfig.org/) installed for
 ```
 prettier --single-quote --trailing-comma=es5 --print-width=120 --write src/*/*.js
 ```
+
+How to develop?
+---
+
+First, fork the repository and clone it to a local folder.
+
+Then, install the dependencies:
+
+```
+npm install
+```
+
+To launch the cli in development mode:
+
+```
+node ./cli.js search ...
+```
