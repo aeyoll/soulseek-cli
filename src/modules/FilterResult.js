@@ -24,7 +24,10 @@ module.exports = function (qualityFilter, mode) {
       res = keepOnlyFlac(res);
     }
 
-    res = filterByQuality(res);
+    if (this.qualityFilter) {
+      res = filterByQuality(this.qualityFilter, res);
+    }
+
     res = sortBySpeed(res);
     const filesByUser = getFilesByUser(res);
     return filesByUser;
@@ -54,13 +57,14 @@ let keepOnlyFlac = (res) => res.filter((r) => path.extname(r.file) === '.flac');
 
 /**
  * If a quality filter is defined, keep only the folders with the defined bitrate
+ * @param {Number} qualityFilter
  * @param {array} res
  * @returns {array}
  */
-let filterByQuality = (res) => {
-  if (this.qualityFilter) {
-    res = res.filter((r) => r.bitrate === parseInt(this.qualityFilter, 10));
-  }
+let filterByQuality = (qualityFilter, res) => {
+  res = res.filter((r) => {
+    return r.bitrate === parseInt(qualityFilter, 10);
+  });
 
   return res;
 };
