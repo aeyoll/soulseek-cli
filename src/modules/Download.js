@@ -36,7 +36,7 @@ module.exports = function (downloadService, searchService, options, client) {
       path: this.destinationDirectory.getDestinationDirectory(directory) + '/' + filename,
     };
 
-    if (this.checkFileExist(data.path, filename)) {
+    if (this.checkFileExists(data.path, filename)) {
       return;
     }
 
@@ -47,20 +47,26 @@ module.exports = function (downloadService, searchService, options, client) {
         log(chalk.red(err));
         process.exit();
       }
+
       this.downloadService.downloadComplete(down.path);
     });
   };
 
-  this.checkFileExist = (path, filename) => {
+  this.checkFileExists = (path, filename) => {
+    let fileExists = false;
+
     if (fs.existsSync(path)) {
       log(filename + chalk.green(' [already downloaded: skipping]'));
       this.downloadService.decrementFileCount();
+
       if (this.searchService.allSearchesCompleted() && this.downloadService.getFileCount() === 0) {
         log('No file to download.');
         process.exit();
       }
-      return true;
+
+      fileExists = true;
     }
-    return false;
+
+    return fileExists;
   };
 };
