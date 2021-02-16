@@ -14,6 +14,7 @@ module.exports = function (searchService, downloadService) {
   this.downloadComplete = (path) => {
     this.fileIndex++;
     let logInfo = '(' + this.fileIndex + '/{{totalFileCount}}) Received: ' + path;
+
     if (this.searchService.allSearchesCompleted()) {
       logInfo = logInfo.replace(/{{totalFileCount}}/g, this.downloadService.getFileCount());
       log(logInfo);

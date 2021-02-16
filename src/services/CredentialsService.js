@@ -17,6 +17,7 @@ module.exports = function () {
         keytar.setPassword(this.serviceName, login, pwd);
         return;
       }
+
       keytar.deletePassword(this.serviceName, oldCredentials[0].account).then(() => {
         keytar.setPassword(this.serviceName, login, pwd);
       });
@@ -35,6 +36,7 @@ module.exports = function () {
           err(chalk.red('No credential found for soulseek-cli, please login.'));
           process.exit();
         }
+
         resolve(credentials[0]);
       });
     });

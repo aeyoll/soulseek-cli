@@ -17,9 +17,17 @@
     "path": "^0.12.7",
     "slsk-client": "^1.1.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "^7.20.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.3.1"
+  },
   "scripts": {
-    "test": "prettier --single-quote --trailing-comma=es5 --print-width=120 --check src/*/*.js"
+    "eslint": "eslint src/** cli.js",
+    "prettier": "prettier --single-quote --trailing-comma=es5 --print-width=120 --check src/*/*.js",
+    "test": "npm run eslint && npm run prettier"
   },
   "bin": {
     "soulseek": "./cli.js"
