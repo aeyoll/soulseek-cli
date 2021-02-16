@@ -1,11 +1,11 @@
 {
   "name": "soulseek-cli",
+  "description": "A Soulseek Cli client.",
   "repository": {
     "type": "git",
     "url": "https://github.com/aeyoll/soulseek-cli"
   },
   "version": "0.0.19",
-  "description": "",
   "main": "cli.js",
   "dependencies": {
     "chalk": "^4.1.0",
