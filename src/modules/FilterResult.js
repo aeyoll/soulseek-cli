@@ -61,13 +61,7 @@ let keepOnlyFlac = (res) => res.filter((r) => path.extname(r.file) === '.flac');
  * @param {array} res
  * @returns {array}
  */
-let filterByQuality = (qualityFilter, res) => {
-  res = res.filter((r) => {
-    return r.bitrate === parseInt(qualityFilter, 10);
-  });
-
-  return res;
-};
+let filterByQuality = (qualityFilter, res) => res.filter((r) => r.bitrate === parseInt(qualityFilter, 10));
 
 /**
  * Display the fastest results first

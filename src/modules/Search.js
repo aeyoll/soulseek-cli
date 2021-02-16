@@ -34,7 +34,8 @@ module.exports = function (searchService, downloadService, options, client) {
     if (err) {
       return log(chalk.red(err));
     }
-    filesByUser = this.filterResult.filter(res);
+
+    const filesByUser = this.filterResult.filter(res);
     this.checkEmptyResult(filesByUser);
     this.showResults(filesByUser);
   };
@@ -48,9 +49,11 @@ module.exports = function (searchService, downloadService, options, client) {
     if (_.isEmpty(filesByUser)) {
       log(chalk.red('Nothing found'));
       this.searchService.consumeQuery();
+
       if (this.searchService.allSearchesCompleted()) {
         process.exit(-1);
       }
+
       this.search();
     } else {
       log(chalk.green('Search finished'));
@@ -84,6 +87,7 @@ module.exports = function (searchService, downloadService, options, client) {
   this.processChosenAnswers = (answers, filesByUser) => {
     this.searchService.consumeQuery();
     this.download.startDownloads(filesByUser[answers.user]);
+
     if (this.searchService.allSearchesCompleted()) {
       this.downloadService.downloadLogger.flush();
       this.downloadService.everyDownloadCompleted();
