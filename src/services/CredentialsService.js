@@ -1,6 +1,8 @@
+const slsk = require('slsk-client');
 const keytar = require('keytar');
-const err = console.error;
 const chalk = require('chalk');
+const err = console.error;
+const log = console.log;
 
 module.exports = function () {
   this.serviceName = 'soulseek-cli';
@@ -39,6 +41,29 @@ module.exports = function () {
 
         resolve(credentials[0]);
       });
+    });
+  };
+
+  /**
+   * Connect to the Soulseek client
+   */
+  this.connect = (callback) => {
+    log(chalk.green('Connecting to soulseek'));
+    this.getCredentials().then((credentials) => {
+      slsk.connect(
+        {
+          user: credentials.account,
+          pass: credentials.password,
+        },
+        (err, client) => {
+          if (err) {
+            return log(chalk.red(err));
+          }
+
+          log(chalk.green('Connected to soulseek'));
+          callback(client);
+        }
+      );
     });
   };
 };
