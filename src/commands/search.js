@@ -12,17 +12,17 @@ class SearchCommand {
   constructor(queries, options) {
     if (queries.length === 0) {
       log(chalk.red('Please add a search query'));
-      process.exit(-1);
+      process.exit(1);
     }
 
     if (!modes.includes(options.mode)) {
       log(chalk.red(`--mode is invalid. Valid values: ${modes.join(', ')})`));
-      process.exit(-1);
+      process.exit(1);
     }
 
     if (options.mode === 'flac' && options.quality) {
       log(chalk.red('--quality is incompatible with the "flac" mode. Please remove this option.'));
-      process.exit(-1);
+      process.exit(1);
     }
 
     this.options = options;

@@ -51,7 +51,7 @@ module.exports = function (searchService, downloadService, options, client) {
       this.searchService.consumeQuery();
 
       if (this.searchService.allSearchesCompleted()) {
-        process.exit(-1);
+        process.exit(1);
       }
 
       this.search();
