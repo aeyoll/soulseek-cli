@@ -7,9 +7,9 @@ class QueryCommand extends DownloadCommand {
    */
   onConnected(client) {
     const queryOptions = {
-      'showPrompt': false
+      showPrompt: false,
     };
-    this.search = new Search(this.searchService, this.downloadService, {...this.options, ...queryOptions}, client);
+    this.search = new Search(this.searchService, this.downloadService, { ...this.options, ...queryOptions }, client);
     this.search.search();
   }
 }
