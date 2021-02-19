@@ -35,10 +35,11 @@ You will be prompted your Soulseek login and password. Credentials are stored an
 Download with required query.
 
 Usage:
-
 ```
 soulseek download|d [options] [query...]
 ```
+
+:warning: This command used to be called `search` in versions prior to 0.1.0.
 
 Options:
 
