@@ -1,7 +1,7 @@
 const inquirer = require('inquirer');
 const CredentialsService = require('../services/CredentialsService');
 
-class Login {
+class LoginCommand {
   constructor() {
     this.credentialsService = new CredentialsService();
     this.askCredentials();
@@ -29,4 +29,4 @@ class Login {
   }
 }
 
-module.exports = Login;
+module.exports = LoginCommand;

@@ -9,7 +9,7 @@ const log = console.log;
 // Available file modes
 const modes = ['mp3', 'flac'];
 
-class SoulseekCli {
+class SearchCommand {
   constructor(queries, options) {
     if (queries.length === 0) {
       log(chalk.red('Please add a search query'));
@@ -65,4 +65,4 @@ class SoulseekCli {
   }
 }
 
-module.exports = SoulseekCli;
+module.exports = SearchCommand;
