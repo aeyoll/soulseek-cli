@@ -11,7 +11,8 @@ module.exports = function (searchService, downloadService, options, client) {
   this.searchService = searchService;
   this.downloadService = downloadService;
   this.client = client;
-  this.timeout = 2000;
+  this.timeout = options.timeout ?? 2000;
+  this.showPrompt = options.showPrompt ?? true;
 
   /**
    * Launch search query, then call a callback
@@ -37,7 +38,12 @@ module.exports = function (searchService, downloadService, options, client) {
 
     const filesByUser = this.filterResult.filter(res);
     this.checkEmptyResult(filesByUser);
-    this.showResults(filesByUser);
+
+    if (this.showPrompt) {
+      this.showResults(filesByUser);
+    } else {
+      process.exit(0);
+    }
   };
 
   /**

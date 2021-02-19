@@ -3,6 +3,7 @@
 const program = require('commander');
 const VERSION = '0.0.20';
 const SearchCommand = require('./src/commands/search');
+const QueryCommand = require('./src/commands/query');
 const LoginCommand = require('./src/commands/login');
 
 program.version(VERSION);
@@ -16,6 +17,17 @@ program
   .alias('s')
   .action((queries, options) => {
     new SearchCommand(queries, options);
+  });
+
+
+program
+  .command('query [query...]')
+  .description('Search with required query, but dont download anything')
+  .option('-q, --quality <quality>', 'show only mp3 with a defined quality')
+  .option('-m, --mode <mode>', 'filter the kind of files you want (available: "mp3", "flac", default: "flac")', 'mp3')
+  .alias('q')
+  .action((queries, options) => {
+    new QueryCommand(queries, options);
   });
 
 program
