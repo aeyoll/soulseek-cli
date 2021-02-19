@@ -8,7 +8,7 @@ const log = console.log;
 // Available file modes
 const modes = ['mp3', 'flac'];
 
-class SearchCommand {
+class DownloadCommand {
   constructor(queries, options) {
     if (queries.length === 0) {
       log(chalk.red('Please add a search query'));
@@ -43,4 +43,4 @@ class SearchCommand {
   }
 }
 
-module.exports = SearchCommand;
+module.exports = DownloadCommand;

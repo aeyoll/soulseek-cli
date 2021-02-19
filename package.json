@@ -5,6 +5,9 @@
     "type": "git",
     "url": "https://github.com/aeyoll/soulseek-cli"
   },
+  "engines": {
+    "node": ">=14"
+  },
   "version": "0.0.20",
   "main": "cli.js",
   "dependencies": {
