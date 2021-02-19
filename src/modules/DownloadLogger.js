@@ -35,7 +35,7 @@ module.exports = function (searchService, downloadService) {
   };
 
   /**
-   * Writen a line summing the number of file starting to download.
+   * Write a line summing the number of file starting to download.
    * @param  {number} fileCount Number of files
    */
   this.startDownload = (fileCount) => {
