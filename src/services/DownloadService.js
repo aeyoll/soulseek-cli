@@ -13,7 +13,7 @@ module.exports = function (searchService) {
   };
 
   this.downloadComplete = (downloadPath) => {
-    this.downloadLogger.downloadComplete(downloadPath, this.downloadingFilesCount);
+    this.downloadLogger.downloadComplete(downloadPath);
     this.downloadCompleteCount++;
     this.everyDownloadCompleted();
   };

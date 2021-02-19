@@ -51,8 +51,8 @@ class SearchCommand {
   }
 
   /**
-   * @param  {string}
-   * @param  {SlskClient}
+   * @param {string} err
+   * @param {SlskClient} client
    */
   onConnected(err, client) {
     if (err) {

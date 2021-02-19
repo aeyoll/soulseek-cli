@@ -22,9 +22,9 @@ module.exports = function (downloadService, searchService, options, client) {
   };
 
   /**
-   * Download a single file from the selected anwser
+   * Download a single file from the selected answer
    *
-   * @param {file}
+   * @param file
    */
   this.downloadFile = (file) => {
     const fileStructure = file.file.split('\\');

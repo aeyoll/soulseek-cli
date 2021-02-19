@@ -10,7 +10,7 @@ module.exports = function (qualityFilter, mode) {
    * From the query results, only get mp3 with free slots.
    * The fastest results are going to be first.
    *
-   * @param  {array}
+   * @param res
    * @return {array}
    */
   this.filter = (res) => {
@@ -29,8 +29,7 @@ module.exports = function (qualityFilter, mode) {
     }
 
     res = sortBySpeed(res);
-    const filesByUser = getFilesByUser(res);
-    return filesByUser;
+    return getFilesByUser(res);
   };
 };
 
@@ -57,7 +56,7 @@ let keepOnlyFlac = (res) => res.filter((r) => path.extname(r.file) === '.flac');
 
 /**
  * If a quality filter is defined, keep only the folders with the defined bitrate
- * @param {Number} qualityFilter
+ * @param {string} qualityFilter
  * @param {array} res
  * @returns {array}
  */

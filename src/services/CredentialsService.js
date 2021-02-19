@@ -8,8 +8,8 @@ module.exports = function () {
   /**
    * Store credential in the OS keychain
    *
-   * @param  {string}
-   * @param  {string}
+   * @param {string} login
+   * @param {string} pwd
    */
   this.storeCredentials = (login, pwd) => {
     keytar.findCredentials(this.serviceName).then((oldCredentials) => {
@@ -25,7 +25,7 @@ module.exports = function () {
   };
 
   /**
-   * Fetchs credential from OS keychain
+   * Fetch credential from OS keychain
    *
    * @return  {Promise<{account: string; password: string;}>}
    */

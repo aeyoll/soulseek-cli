@@ -79,10 +79,11 @@ module.exports = function (searchService, downloadService, options, client) {
   };
 
   /**
-   * From the user anwser, trigger the download of the folder
+   * From the user answer, trigger the download of the folder
    * If there is pending search, launch the next search query
    *
    * @param {array} answers
+   * @param filesByUser
    */
   this.processChosenAnswers = (answers, filesByUser) => {
     this.searchService.consumeQuery();
