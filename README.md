@@ -4,6 +4,11 @@
 
 A Soulseek Cli client.
 
+Requirements
+---
+
+NodeJS >= 14
+
 Installation
 ---
 
