@@ -1,7 +1,7 @@
-const SearchCommand = require('./search');
+const DownloadCommand = require('./download');
 const Search = require('../modules/Search');
 
-class QueryCommand extends SearchCommand {
+class QueryCommand extends DownloadCommand {
   /**
    * @param {SlskClient} client
    */
