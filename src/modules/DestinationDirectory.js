@@ -15,12 +15,12 @@ module.exports = function (destination) {
 
     if (this.destination) {
       if (path.isAbsolute(this.destination)) {
-        dir = this.destination + path.step + directory;
+        dir = this.destination + path.sep + directory;
       } else {
-        dir = process.cwd() + path.step + this.destination + path.step + directory;
+        dir = process.cwd() + path.sep + this.destination + path.sep + directory;
       }
     } else {
-      dir = process.cwd() + path.step + directory;
+      dir = process.cwd() + path.sep + directory;
     }
 
     createIfNotExist(dir);
@@ -34,11 +34,11 @@ module.exports = function (destination) {
  * @param {string} dir
  */
 let createIfNotExist = (dir) => {
-  const dirList = dir.split(path.step);
+  const dirList = dir.split(path.sep);
   let buildPath = '';
 
   for (let i = 0; i < dirList.length; i++) {
-    buildPath += dirList[i] + path.step;
+    buildPath += dirList[i] + path.sep;
 
     if (!fs.existsSync(buildPath)) {
       fs.mkdirSync(buildPath);
