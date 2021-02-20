@@ -72,7 +72,7 @@ module.exports = function (searchService, downloadService, options, client) {
    * @param {array} filesByUser
    */
   this.showResults = (filesByUser) => {
-    var numResults = Object.keys(filesByUser).length;
+    const numResults = Object.keys(filesByUser).length;
     log(chalk.green('Displaying ' + numResults + ' search results'));
 
     const options = {
