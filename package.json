@@ -8,7 +8,7 @@
   "engines": {
     "node": ">=14"
   },
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "cli.js",
   "dependencies": {
     "chalk": "^4.1.0",
@@ -21,16 +21,19 @@
     "slsk-client": "^1.1.0"
   },
   "devDependencies": {
+    "editorconfig-checker": "^3.3.0",
     "eslint": "^7.20.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.3.1"
+    "eslint-plugin-promise": "^4.3.1",
+    "prettier": "^2.2.1"
   },
   "scripts": {
-    "eslint": "eslint src/** cli.js",
-    "prettier": "prettier --single-quote --trailing-comma=es5 --print-width=120 --check src/*/*.js",
-    "test": "npm run eslint && npm run prettier"
+    "lint:editorconfig": "editorconfig-checker",
+    "lint:eslint": "eslint src/** cli.js",
+    "lint:prettier": "prettier --single-quote --trailing-comma=es5 --print-width=120 --check src/*/*.js",
+    "test": "npm run lint:editorconfig && npm run lint:eslint && npm run lint:prettier"
   },
   "bin": {
     "soulseek": "./cli.js"
