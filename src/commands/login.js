@@ -17,7 +17,7 @@ class LoginCommand {
       message: 'Login',
     };
     const pwdQuestion = {
-      type: 'input',
+      type: 'password',
       name: 'pwd',
       message: 'Password',
     };
