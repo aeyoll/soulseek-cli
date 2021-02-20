@@ -72,7 +72,8 @@ module.exports = function (searchService, downloadService, options, client) {
    * @param {array} filesByUser
    */
   this.showResults = (filesByUser) => {
-    log(chalk.green('Displaying search results'));
+	  var numResults = Object.keys(filesByUser).length;
+    log(chalk.green('Displaying '+numResults+' search results'));
 
     const options = {
       type: 'rawlist',
