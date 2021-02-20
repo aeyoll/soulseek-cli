@@ -5,7 +5,10 @@
     "type": "git",
     "url": "https://github.com/aeyoll/soulseek-cli"
   },
-  "version": "0.0.20",
+  "engines": {
+    "node": ">=14"
+  },
+  "version": "0.1.0",
   "main": "cli.js",
   "dependencies": {
     "chalk": "^4.1.0",
