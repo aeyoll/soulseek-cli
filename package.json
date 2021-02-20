@@ -8,7 +8,7 @@
   "engines": {
     "node": ">=14"
   },
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "cli.js",
   "dependencies": {
     "chalk": "^4.1.0",
