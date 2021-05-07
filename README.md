@@ -16,6 +16,16 @@ Installation
 npm install -g soulseek-cli
 ```
 
+### On Linux
+
+One of soulseek-cli dependencies (node-keytar) uses libsecret, so you may need to install it before running npm install.
+
+Depending on your distribution, you will need to run the following command:
+
+- Debian/Ubuntu: `sudo apt-get install libsecret-1-dev`
+- Red Hat-based: `sudo yum install libsecret-devel`
+- Arch Linux: `sudo pacman -S libsecret`
+
 Commands
 ---
 
