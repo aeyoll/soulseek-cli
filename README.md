@@ -18,13 +18,31 @@ npm install -g soulseek-cli
 
 ### On Linux
 
-One of soulseek-cli dependencies (node-keytar) uses libsecret, so you may need to install it before running npm install.
+One of soulseek-cli dependencies ([node-keytar](https://github.com/atom/node-keytar)) uses libsecret, so you need to install it before running `npm install`.
 
 Depending on your distribution, you will need to run the following command:
 
 - Debian/Ubuntu: `sudo apt-get install libsecret-1-dev`
 - Red Hat-based: `sudo yum install libsecret-devel`
 - Arch Linux: `sudo pacman -S libsecret`
+
+### On Headless Linux
+
+On Linux, [node-keytar](https://github.com/atom/node-keytar) uses the Linux SecretService API. It is possible to use the SecretService backend on Linux systems without X11 server available (only D-Bus is required). In this case, you can do the following (exemple is on a Debian environment):
+
+#### Install dependencies
+
+```sh
+apt install gnome-keyring --no-install-recommends # Install the GNOME Keyring daemon. "no-install-recommends" prevents X11 install
+```
+
+#### Usage
+
+```sh
+dbus-run-session -- $SHELL # Start a D-Bus session
+echo 'root' | /usr/bin/gnome-keyring-daemon -r -d --unlock # Unlock GNOME Keyring
+soulseek ... # Use soulseek-cli normally
+```
 
 Commands
 ---
