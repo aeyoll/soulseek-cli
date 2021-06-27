@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const program = require('commander');
-const VERSION = '0.1.3';
+const VERSION = '0.1.4';
 const DownloadCommand = require('./src/commands/download');
 const QueryCommand = require('./src/commands/query');
 const LoginCommand = require('./src/commands/login');
