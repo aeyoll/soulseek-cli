@@ -33,14 +33,24 @@ module.exports = function () {
    */
   this.getCredentials = () => {
     return new Promise((resolve) => {
-      keytar.findCredentials(this.serviceName).then((credentials) => {
-        if (credentials.length === 0) {
-          err(chalk.red('No credential found for soulseek-cli, please login.'));
-          process.exit();
-        }
+      const account = process.env.SOULSEEK_ACCOUNT;
+      const password = process.env.SOULSEEK_PASSWORD;
 
-        resolve(credentials[0]);
-      });
+      if (account !== undefined && password !== undefined) {
+        resolve({
+          account,
+          password,
+        });
+      } else {
+        keytar.findCredentials(this.serviceName).then((credentials) => {
+          if (credentials.length === 0) {
+            err(chalk.red('No credential found for soulseek-cli, please login.'));
+            process.exit();
+          }
+
+          resolve(credentials[0]);
+        });
+      }
     });
   };
 
