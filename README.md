@@ -58,6 +58,14 @@ soulseek login
 
 You will be prompted your Soulseek login and password. Credentials are stored and encrypted in your system keychain.
 
+Alternatively, you can also login by setting environment variables:
+
+```sh
+export SOULSEEK_ACCOUNT=youraccount
+export SOULSEEK_PASSWORD=yourpassword
+soulseek download "..."
+```
+
 ### Download
 
 Download with required query.
