@@ -42,6 +42,7 @@ module.exports = function (searchService, downloadService, options, client) {
     if (this.showPrompt) {
       this.showResults(filesByUser);
     } else {
+      this.showTopResult(filesByUser);
       process.exit(0);
     }
   };
@@ -67,12 +68,28 @@ module.exports = function (searchService, downloadService, options, client) {
   };
 
   /**
+   * Display the top result
+   *
+   * @param {array} filesByUser
+   */
+  this.showTopResult = (filesByUser) => {
+    const numResults = Object.keys(filesByUser).length;
+
+    if (numResults > 0) {
+      const topResult = String(_.keys(filesByUser)[0]);
+      log(chalk.green('Search returned ' + numResults + ' results'));
+      log(chalk.blue('Top result: %s'), topResult);
+    }
+  };
+
+  /**
    * Display a list of choices that the user can choose from.
    *
    * @param {array} filesByUser
    */
   this.showResults = (filesByUser) => {
     const numResults = Object.keys(filesByUser).length;
+
     log(chalk.green('Displaying ' + numResults + ' search results'));
 
     const options = {
