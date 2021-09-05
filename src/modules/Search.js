@@ -62,6 +62,13 @@ module.exports = function (searchService, downloadService, options, client) {
     }
   };
 
+  this.showTopResult = (filesByUser, numResults) => {
+    const topResult = String(_.keys(filesByUser)[0]);
+    log(chalk.green('Search returned ' + numResults + ' results'));
+    log(chalk.blue('Top result: %s'), topResult);
+    process.exit(0);
+  }
+
   /**
    * Display a list of choices that the user can choose from.
    *
@@ -82,10 +89,7 @@ module.exports = function (searchService, downloadService, options, client) {
       };
       inquirer.prompt([options]).then((answers) => this.processChosenAnswers(answers, filesByUser));
     } else {
-      const topResult = String(_.keys(filesByUser)[0]);
-      log(chalk.green('Search returned ' + numResults + ' results'));
-      log(chalk.blue('Top result: %s'), topResult);
-      process.exit(0);
+      this.showTopResult(filesByUser, numResults);
     }
   };
 
