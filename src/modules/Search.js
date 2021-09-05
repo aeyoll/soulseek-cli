@@ -39,11 +39,7 @@ module.exports = function (searchService, downloadService, options, client) {
     const filesByUser = this.filterResult.filter(res);
     this.checkEmptyResult(filesByUser);
 
-    if (this.showPrompt) {
-      this.showResults(filesByUser);
-    } else {
-      process.exit(0);
-    }
+    this.showResults(filesByUser);
   };
 
   /**
@@ -66,6 +62,13 @@ module.exports = function (searchService, downloadService, options, client) {
     }
   };
 
+  this.showTopResult = (filesByUser, numResults) => {
+    const topResult = String(_.keys(filesByUser)[0]);
+    log(chalk.green('Search returned ' + numResults + ' results'));
+    log(chalk.blue('Top result: %s'), topResult);
+    process.exit(0);
+  };
+
   /**
    * Display a list of choices that the user can choose from.
    *
@@ -73,16 +76,21 @@ module.exports = function (searchService, downloadService, options, client) {
    */
   this.showResults = (filesByUser) => {
     const numResults = Object.keys(filesByUser).length;
-    log(chalk.green('Displaying ' + numResults + ' search results'));
 
-    const options = {
-      type: 'rawlist',
-      name: 'user',
-      pageSize: 10,
-      message: 'Choose a folder to download',
-      choices: _.keys(filesByUser),
-    };
-    inquirer.prompt([options]).then((answers) => this.processChosenAnswers(answers, filesByUser));
+    if (this.showPrompt) {
+      log(chalk.green('Displaying ' + numResults + ' search results'));
+
+      const options = {
+        type: 'rawlist',
+        name: 'user',
+        pageSize: 10,
+        message: 'Choose a folder to download',
+        choices: _.keys(filesByUser),
+      };
+      inquirer.prompt([options]).then((answers) => this.processChosenAnswers(answers, filesByUser));
+    } else {
+      this.showTopResult(filesByUser, numResults);
+    }
   };
 
   /**
