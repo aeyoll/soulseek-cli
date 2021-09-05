@@ -67,7 +67,7 @@ module.exports = function (searchService, downloadService, options, client) {
     log(chalk.green('Search returned ' + numResults + ' results'));
     log(chalk.blue('Top result: %s'), topResult);
     process.exit(0);
-  }
+  };
 
   /**
    * Display a list of choices that the user can choose from.
