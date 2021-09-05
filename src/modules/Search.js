@@ -39,7 +39,12 @@ module.exports = function (searchService, downloadService, options, client) {
     const filesByUser = this.filterResult.filter(res);
     this.checkEmptyResult(filesByUser);
 
-    this.showResults(filesByUser);
+    if (this.showPrompt) {
+      this.showResults(filesByUser);
+    } else {
+      this.showTopResult(filesByUser);
+      process.exit(0);
+    }
   };
 
   /**
@@ -62,11 +67,19 @@ module.exports = function (searchService, downloadService, options, client) {
     }
   };
 
-  this.showTopResult = (filesByUser, numResults) => {
-    const topResult = String(_.keys(filesByUser)[0]);
-    log(chalk.green('Search returned ' + numResults + ' results'));
-    log(chalk.blue('Top result: %s'), topResult);
-    process.exit(0);
+  /**
+   * Display the top result
+   *
+   * @param {array} filesByUser
+   */
+  this.showTopResult = (filesByUser) => {
+    const numResults = Object.keys(filesByUser).length;
+
+    if (numResults > 0) {
+      const topResult = String(_.keys(filesByUser)[0]);
+      log(chalk.green('Search returned ' + numResults + ' results'));
+      log(chalk.blue('Top result: %s'), topResult);
+    }
   };
 
   /**
@@ -77,20 +90,16 @@ module.exports = function (searchService, downloadService, options, client) {
   this.showResults = (filesByUser) => {
     const numResults = Object.keys(filesByUser).length;
 
-    if (this.showPrompt) {
-      log(chalk.green('Displaying ' + numResults + ' search results'));
+    log(chalk.green('Displaying ' + numResults + ' search results'));
 
-      const options = {
-        type: 'rawlist',
-        name: 'user',
-        pageSize: 10,
-        message: 'Choose a folder to download',
-        choices: _.keys(filesByUser),
-      };
-      inquirer.prompt([options]).then((answers) => this.processChosenAnswers(answers, filesByUser));
-    } else {
-      this.showTopResult(filesByUser, numResults);
-    }
+    const options = {
+      type: 'rawlist',
+      name: 'user',
+      pageSize: 10,
+      message: 'Choose a folder to download',
+      choices: _.keys(filesByUser),
+    };
+    inquirer.prompt([options]).then((answers) => this.processChosenAnswers(answers, filesByUser));
   };
 
   /**
