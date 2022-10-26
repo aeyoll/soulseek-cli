@@ -1,11 +1,11 @@
-const inquirer = require('inquirer');
-const FilterResult = require('./FilterResult');
-const Download = require('./Download');
-const _ = require('lodash');
-const chalk = require('chalk');
+import inquirer from 'inquirer';
+import _ from 'lodash';
+import chalk from 'chalk';
+import FilterResult from './FilterResult.js';
+import Download from './Download.js';
 const log = console.log;
 
-module.exports = function (searchService, downloadService, options, client) {
+export default function (searchService, downloadService, options, client) {
   this.download = new Download(downloadService, searchService, options, client);
   this.filterResult = new FilterResult(options.quality, options.mode);
   this.searchService = searchService;
@@ -120,4 +120,4 @@ module.exports = function (searchService, downloadService, options, client) {
       this.search();
     }
   };
-};
+}

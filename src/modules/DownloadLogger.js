@@ -1,7 +1,7 @@
-const chalk = require('chalk');
+import chalk from 'chalk';
 const log = console.log;
 
-module.exports = function (searchService, downloadService) {
+export default function (searchService, downloadService) {
   this.searchService = searchService;
   this.downloadService = downloadService;
   this.logBuffer = '';
@@ -41,4 +41,4 @@ module.exports = function (searchService, downloadService) {
   this.startDownload = (fileCount) => {
     log(chalk.green('Starting download of ' + fileCount + ' file' + (fileCount > 1 ? 's' : '') + '...'));
   };
-};
+}

@@ -1,8 +1,8 @@
-const chalk = require('chalk');
-const Search = require('../modules/Search');
-const SearchService = require('../services/SearchService');
-const DownloadService = require('../services/DownloadService');
-const CredentialsService = require('../services/CredentialsService');
+import chalk from 'chalk';
+import Search from '../modules/Search.js';
+import SearchService from '../services/SearchService.js';
+import DownloadService from '../services/DownloadService.js';
+import CredentialsService from '../services/CredentialsService.js';
 const log = console.log;
 
 // Available file modes
@@ -43,4 +43,4 @@ class DownloadCommand {
   }
 }
 
-module.exports = DownloadCommand;
+export default DownloadCommand;

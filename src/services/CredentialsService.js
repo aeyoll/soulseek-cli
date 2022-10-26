@@ -1,10 +1,10 @@
-const slsk = require('slsk-client');
-const keytar = require('keytar');
-const chalk = require('chalk');
+import slsk from 'slsk-client';
+import keytar from 'keytar';
+import chalk from 'chalk';
 const err = console.error;
 const log = console.log;
 
-module.exports = function () {
+export default function () {
   this.serviceName = 'soulseek-cli';
 
   /**
@@ -76,4 +76,4 @@ module.exports = function () {
       );
     });
   };
-};
+}

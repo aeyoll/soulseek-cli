@@ -1,4 +1,4 @@
-module.exports = function (queries) {
+export default function (queries) {
   this.queries = queries;
 
   /**
@@ -25,4 +25,4 @@ module.exports = function (queries) {
   this.consumeQuery = () => {
     return this.queries.splice(0, 1);
   };
-};
+}

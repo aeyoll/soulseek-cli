@@ -1,8 +1,8 @@
-const path = require('path');
-const _ = require('lodash');
+import path from 'path';
+import _ from 'lodash';
 const pluralize = (noun, count, suffix = 's') => `${count} ${noun}${count !== 1 ? suffix : ''}`;
 
-module.exports = function (qualityFilter, mode) {
+export default function (qualityFilter, mode) {
   this.qualityFilter = qualityFilter;
   this.mode = mode;
 
@@ -31,7 +31,7 @@ module.exports = function (qualityFilter, mode) {
     res = sortBySpeed(res);
     return getFilesByUser(res);
   };
-};
+}
 
 /**
  * Discard all results without free slots

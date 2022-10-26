@@ -1,5 +1,5 @@
-const DownloadCommand = require('./download');
-const Search = require('../modules/Search');
+import DownloadCommand from './download.js';
+import Search from '../modules/Search.js';
 
 class QueryCommand extends DownloadCommand {
   /**
@@ -14,4 +14,4 @@ class QueryCommand extends DownloadCommand {
   }
 }
 
-module.exports = QueryCommand;
+export default QueryCommand;

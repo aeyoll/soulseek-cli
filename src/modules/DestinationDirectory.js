@@ -1,8 +1,8 @@
-const path = require('path');
-const fs = require('fs');
-const process = require('process');
+import path from 'path';
+import fs from 'fs';
+import process from 'process';
 
-module.exports = function (destination) {
+export default function (destination) {
   this.destination = destination;
 
   /**
@@ -27,7 +27,7 @@ module.exports = function (destination) {
 
     return dir;
   };
-};
+}
 
 /**
  * Create a directory if it doesn't exist

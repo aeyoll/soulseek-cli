@@ -1,5 +1,5 @@
-const inquirer = require('inquirer');
-const CredentialsService = require('../services/CredentialsService');
+import inquirer from 'inquirer';
+import CredentialsService from '../services/CredentialsService.js';
 
 class LoginCommand {
   constructor() {
@@ -29,4 +29,4 @@ class LoginCommand {
   }
 }
 
-module.exports = LoginCommand;
+export default LoginCommand;

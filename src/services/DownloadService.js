@@ -1,7 +1,7 @@
-const DownloadLogger = require('../modules/DownloadLogger');
+import DownloadLogger from '../modules/DownloadLogger.js';
 const log = console.log;
 
-module.exports = function (searchService) {
+export default function (searchService) {
   this.searchService = searchService;
   this.downloadLogger = new DownloadLogger(searchService, this);
   this.downloadingFilesCount = 0;
@@ -32,4 +32,4 @@ module.exports = function (searchService) {
   this.getFileCount = () => {
     return this.downloadingFilesCount;
   };
-};
+}

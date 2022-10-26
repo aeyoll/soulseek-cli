@@ -1,10 +1,10 @@
-const fs = require('fs');
-const process = require('process');
-const chalk = require('chalk');
-const DestinationDirectory = require('./DestinationDirectory');
+import fs from 'fs';
+import process from 'process';
+import chalk from 'chalk';
+import DestinationDirectory from './DestinationDirectory.js';
 const log = console.log;
 
-module.exports = function (downloadService, searchService, options, client) {
+export default function (downloadService, searchService, options, client) {
   this.destinationDirectory = new DestinationDirectory(options.destination);
   this.downloadService = downloadService;
   this.searchService = searchService;
@@ -69,4 +69,4 @@ module.exports = function (downloadService, searchService, options, client) {
 
     return fileExists;
   };
-};
+}

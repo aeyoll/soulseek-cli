@@ -6,28 +6,29 @@
     "url": "https://github.com/aeyoll/soulseek-cli"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=16.16"
   },
+  "type": "module",
   "version": "0.1.8",
   "main": "cli.js",
   "dependencies": {
-    "chalk": "^4.1.0",
-    "commander": "^7.1.0",
+    "chalk": "^5.1.2",
+    "commander": "^9.4.1",
     "fs": "0.0.2",
-    "inquirer": "^7.3.3",
-    "keytar": "^7.3.0",
-    "lodash": "^4.17.20",
+    "inquirer": "^9.1.4",
+    "keytar": "^7.9.0",
+    "lodash": "^4.17.21",
     "path": "^0.12.7",
     "slsk-client": "^1.1.0"
   },
   "devDependencies": {
-    "editorconfig-checker": "^3.3.0",
-    "eslint": "^7.20.0",
-    "eslint-config-standard": "^16.0.2",
-    "eslint-plugin-import": "^2.22.1",
+    "editorconfig-checker": "^4.0.2",
+    "eslint": "^8.26.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.3.1",
-    "prettier": "^2.2.1"
+    "eslint-plugin-promise": "^6.1.1",
+    "prettier": "^2.7.1"
   },
   "scripts": {
     "lint:editorconfig": "editorconfig-checker",
@@ -39,5 +40,8 @@
     "soulseek": "./cli.js"
   },
   "author": "Jean-Philippe Bidegain",
-  "license": "MIT"
+  "license": "MIT",
+  "volta": {
+    "node": "16.16.0"
+  }
 }

@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 
-const program = require('commander');
 const VERSION = '0.1.8';
-const DownloadCommand = require('./src/commands/download');
-const QueryCommand = require('./src/commands/query');
-const LoginCommand = require('./src/commands/login');
+import { Command } from 'commander';
+import DownloadCommand from './src/commands/download.js';
+import QueryCommand from './src/commands/query.js';
+import LoginCommand from './src/commands/login.js';
 
+const program = new Command();
 program.version(VERSION);
 
 program
