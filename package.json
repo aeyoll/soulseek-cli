@@ -6,29 +6,29 @@
     "url": "https://github.com/aeyoll/soulseek-cli"
   },
   "engines": {
-    "node": ">=16.16"
+    "node": ">=20.10"
   },
   "type": "module",
   "version": "0.2.0",
   "main": "cli.js",
   "dependencies": {
-    "chalk": "^5.1.2",
-    "commander": "^9.4.1",
+    "chalk": "^5.3.0",
+    "commander": "^11.1.0",
     "fs": "0.0.2",
-    "inquirer": "^9.1.4",
+    "inquirer": "^9.2.12",
     "keytar": "^7.9.0",
     "lodash": "^4.17.21",
     "path": "^0.12.7",
     "slsk-client": "^1.1.0"
   },
   "devDependencies": {
-    "editorconfig-checker": "4.0.0",
-    "eslint": "^8.26.0",
-    "eslint-config-standard": "^17.0.0",
-    "eslint-plugin-import": "^2.26.0",
+    "editorconfig-checker": "5.1.2",
+    "eslint": "^8.56.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.1.1",
-    "prettier": "^2.7.1"
+    "prettier": "^3.1.1"
   },
   "scripts": {
     "lint:editorconfig": "editorconfig-checker",
@@ -42,6 +42,6 @@
   "author": "Jean-Philippe Bidegain",
   "license": "MIT",
   "volta": {
-    "node": "16.16.0"
+    "node": "20.10.0"
   }
 }
