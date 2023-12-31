@@ -7,7 +7,7 @@ A Soulseek Cli client.
 Requirements
 ---
 
-NodeJS >= 16
+NodeJS >= 20
 
 Installation
 ---
