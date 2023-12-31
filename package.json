@@ -3,7 +3,7 @@
   "description": "A Soulseek Cli client.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/aeyoll/soulseek-cli"
+    "url": "git+https://github.com/aeyoll/soulseek-cli.git"
   },
   "engines": {
     "node": ">=20.10"
@@ -37,7 +37,7 @@
     "test": "npm run lint:editorconfig && npm run lint:eslint && npm run lint:prettier"
   },
   "bin": {
-    "soulseek": "./cli.js"
+    "soulseek": "cli.js"
   },
   "author": "Jean-Philippe Bidegain",
   "license": "MIT",
