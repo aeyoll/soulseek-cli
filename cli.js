@@ -15,6 +15,7 @@ program
   .option('-d, --destination <folder>', 'downloads\'s destination')
   .option('-q, --quality <quality>', 'show only mp3 with a defined quality')
   .option('-m, --mode <mode>', 'filter the kind of files you want (available: "mp3", "flac", default: "mp3")', 'mp3')
+  .option('-f, --file', 'download selected files instead of folder')
   .alias('d')
   .action((queries, options) => {
     new DownloadCommand(queries, options);

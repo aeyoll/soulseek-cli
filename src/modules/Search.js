@@ -92,16 +92,40 @@ export default function (searchService, downloadService, options, client) {
 
     log(chalk.green('Displaying ' + numResults + ' search results'));
 
-    const options = {
+    const question = {
       type: 'rawlist',
       name: 'user',
       pageSize: 10,
       message: 'Choose a folder to download',
       choices: _.keys(filesByUser),
     };
-    inquirer.prompt([options]).then((answers) => this.processChosenAnswers(answers, filesByUser));
+    const promptAction = options.file ? this.showFolderFiles : this.processChosenAnswers;
+    inquirer.prompt([question]).then((answers) => promptAction(answers, filesByUser));
   };
 
+  this.showFolderFiles = (answers, filesByUser) => {
+    const userFiles = filesByUser[answers.user];
+    const fileChoices = userFiles.map((file) => {
+      const splitParts = file.file.split("\\");
+      const formattedName = splitParts[0] + "\\" + splitParts[1] + "-" + splitParts[splitParts.length - 1];
+      return {
+        name: formattedName,
+        value: file,
+      };
+    });
+    log(fileChoices)
+    log(chalk.green('Displaying ' + userFiles.length + ' files for user ' + answers.user));
+
+    const options = {
+      type: 'checkbox',
+      name: 'files',
+      pageSize: 10,
+      message: 'Choose files to download',
+      choices: fileChoices};
+    inquirer
+      .prompt([options])
+      .then((answers) => this.processChosenAnswers(answers, filesByUser));
+  }
   /**
    * From the user answer, trigger the download of the folder
    * If there is pending search, launch the next search query
@@ -111,8 +135,8 @@ export default function (searchService, downloadService, options, client) {
    */
   this.processChosenAnswers = (answers, filesByUser) => {
     this.searchService.consumeQuery();
-    this.download.startDownloads(filesByUser[answers.user]);
-
+    const filesToDownload = options.file ? answers.files : filesByUser[answers.user];
+    this.download.startDownloads(filesToDownload);
     if (this.searchService.allSearchesCompleted()) {
       this.downloadService.downloadLogger.flush();
       this.downloadService.everyDownloadCompleted();
