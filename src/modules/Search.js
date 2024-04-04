@@ -106,14 +106,14 @@ export default function (searchService, downloadService, options, client) {
   this.showFolderFiles = (answers, filesByUser) => {
     const userFiles = filesByUser[answers.user];
     const fileChoices = userFiles.map((file) => {
-      const splitParts = file.file.split("\\");
-      const formattedName = splitParts[0] + "\\" + splitParts[1] + "-" + splitParts[splitParts.length - 1];
+      const splitParts = file.file.split('\\');
+      const formattedName = splitParts[0] + '\\' + splitParts[1] + '-' + splitParts[splitParts.length - 1];
       return {
         name: formattedName,
         value: file,
       };
     });
-    log(fileChoices)
+    log(fileChoices);
     log(chalk.green('Displaying ' + userFiles.length + ' files for user ' + answers.user));
 
     const options = {
@@ -121,11 +121,10 @@ export default function (searchService, downloadService, options, client) {
       name: 'files',
       pageSize: 10,
       message: 'Choose files to download',
-      choices: fileChoices};
-    inquirer
-      .prompt([options])
-      .then((answers) => this.processChosenAnswers(answers, filesByUser));
-  }
+      choices: fileChoices,
+    };
+    inquirer.prompt([options]).then((answers) => this.processChosenAnswers(answers, filesByUser));
+  };
   /**
    * From the user answer, trigger the download of the folder
    * If there is pending search, launch the next search query
