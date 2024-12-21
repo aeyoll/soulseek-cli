@@ -42,6 +42,6 @@
   "author": "Jean-Philippe Bidegain",
   "license": "MIT",
   "volta": {
-    "node": "20.10.0"
+    "node": "20.18.1"
   }
 }
