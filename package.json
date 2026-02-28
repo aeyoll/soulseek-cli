@@ -9,7 +9,7 @@
     "node": ">=24"
   },
   "type": "module",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "main": "cli.js",
   "dependencies": {
     "chalk": "^5.4.0",

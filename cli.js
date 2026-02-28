@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const VERSION = '0.3.0';
+const VERSION = '0.4.0';
 import { Command } from 'commander';
 import DownloadCommand from './src/commands/download.js';
 import QueryCommand from './src/commands/query.js';
