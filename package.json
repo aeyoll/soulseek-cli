@@ -6,7 +6,7 @@
     "url": "git+https://github.com/aeyoll/soulseek-cli.git"
   },
   "engines": {
-    "node": ">=20.10"
+    "node": ">=24"
   },
   "type": "module",
   "version": "0.3.0",
