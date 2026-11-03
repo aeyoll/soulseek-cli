@@ -24,6 +24,10 @@ export default function (qualityFilter, mode) {
       res = keepOnlyFlac(res);
     }
 
+    if (this.mode === 'lossless') {
+      res = keepOnlyLossless(res);
+    }
+
     if (this.qualityFilter) {
       res = filterByQuality(this.qualityFilter, res);
     }
@@ -53,6 +57,14 @@ let keepOnlyMp3 = (res) => res.filter((r) => path.extname(r.file) === '.mp3');
  * @returns {array}
  */
 let keepOnlyFlac = (res) => res.filter((r) => path.extname(r.file) === '.flac');
+
+/**
+ * Remove everything that is not a flac, wav or aiff
+ * @param {array} res
+ * @returns {array}
+ */
+let keepOnlyLossless = (res) =>
+  res.filter((r) => ['.flac', '.wav', '.aiff', '.aif'].includes(path.extname(r.file).toLowerCase()));
 
 /**
  * If a quality filter is defined, keep only the folders with the defined bitrate
