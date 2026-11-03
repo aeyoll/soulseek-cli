@@ -64,6 +64,7 @@ export default function () {
         {
           user: credentials.account,
           pass: credentials.password,
+          timeout: 20000,
         },
         (err, client) => {
           if (err) {
