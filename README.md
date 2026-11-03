@@ -79,12 +79,14 @@ soulseek download|d [options] [query...]
 
 Options:
 
-| Option                    | Description                                                                   |
-| ------------------------- | ----------------------------------------------------------------------------- |
-| -d --destination <folder> | downloads's destination                                                       |
-| -q --quality <quality>    | show only mp3 with a defined quality                                          |
-| -m --mode <mode>          | filter the kind of files you want (available: "mp3", "flac", default: "mp3")  |
-| -h --help                 | display help for command                                                      |
+| Option                    | Description                                                                              |
+| ------------------------- | ---------------------------------------------------------------------------------------- |
+| -d --destination <folder> | downloads's destination                                                                  |
+| -q --quality <quality>    | show only mp3 with a defined quality                                                     |
+| -m --mode <mode>          | filter the kind of files you want (available: "mp3", "flac", "lossless", default: "mp3") |
+| -h --help                 | display help for command                                                                 |
+
+The "lossless" mode keeps flac, wav and aiff files.
 
 Examples:
 
@@ -93,6 +95,7 @@ soulseek download "Your query" # Download in the current folder
 soulseek download "Your query" --destination=/path/to/directory # Download in a defined folder (relative or absolute)
 soulseek download "Your query" --quality=320 # Filter by quality
 soulseek download "Your query" --mode=flac # Filter by file type
+soulseek download "Your query" --mode=lossless # Keep flac, wav and aiff files
 ```
 
 ### Query
@@ -108,11 +111,11 @@ soulseek query|q [options] [query...]
 
 Options:
 
-| Option                 | Description                                                                  |
-| ---------------------- | ---------------------------------------------------------------------------- |
-| -q --quality <quality> | show only mp3 with a defined quality                                         |
-| -m --mode <mode>       | filter the kind of files you want (available: "mp3", "flac", default: "mp3") |
-| -h --help              | display help for command                                                     |
+| Option                 | Description                                                                              |
+| ---------------------- | ---------------------------------------------------------------------------------------- |
+| -q --quality <quality> | show only mp3 with a defined quality                                                     |
+| -m --mode <mode>       | filter the kind of files you want (available: "mp3", "flac", "lossless", default: "mp3") |
+| -h --help              | display help for command                                                                 |
 
 
 
